@@ -1,4 +1,4 @@
-![LOGO_OmniSens]("https://photos.app.goo.gl/8LWyh8GHqJJAx63d7")
+![LOGO_OmniSens](<https://photos.app.goo.gl/8LWyh8GHqJJAx63d7>)
   
 # OmniSens Industrial Suite
 
