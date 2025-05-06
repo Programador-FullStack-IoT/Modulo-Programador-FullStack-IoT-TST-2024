@@ -73,11 +73,11 @@ flowchart TD
     end
 
     subgraph Edge Layer
-      Edge1[Edge Gateway/Controller (Concentrador Industrial)]
+      Edge1[Edge Gateway/Controller Concentrador Industrial]
     end
 
     subgraph Cloud Hub
-      Hub[OmniSens Hub (Plataforma SaaS)]
+      Hub[OmniSens Hub Plataforma SaaS]
     end
 
     subgraph Usuarios Finales
@@ -124,41 +124,42 @@ El proyecto está estructurado en carpetas que buscan reflejar las diferentes ca
 --------------------------------------------------------------------------------
 Estructura del Repositorio
 La estructura del código y la documentación sigue una organización modular:
-OmniSens-Industrial-Suite/
-├── README.md           <- Este archivo
-├── LICENSE             <- Licencia del proyecto
-├── docs/               <- Documentación adicional (arquitectura, API, manuales)
-│   ├── architecture.md
-│   ├── device-specs.md
-│   ├── integration.md
-│   └── roadmap.md
-├── hub/                <- Código del OmniSens Hub (backend + frontend)
-│   ├── backend/        <- Microservicios, APIs, base de datos, módulo de análisis
-│   └── frontend/       <- Panel de usuario, dashboards, visualizaciones
-├── devices/            <- Firmwares y código para los dispositivos IoT (sensores)
-│   ├── gasguard/
-│   ├── tempwatch/
-│   └── liquidmonitor/
-├── edge/               <- Código de Gateways / Edge nodes y concentradores industriales
-│   ├── gateways-iot/          # Gateways ligeros (ESP32, Raspberry Pi)
-│   │   ├── edge-client-esp32/
-│   │   └── edge-client-raspberry/
-│   ├── industrial-concentrators/  # Controladores industriales (PROFIBUS, Modbus)
-│   │   ├── concentrator-profibus/
-│   │   └── concentrator-modbus/
-│   └── edge-bridge/           # Código para la conexión Edge -> OmniSens Hub
-├── configs/            <- Archivos de configuración (red, protocolos, seguridad, ambientes)
-├── deployments/        <- Scripts de despliegue (Docker, Kubernetes, etc.)
-└── tests/              <- Tests de backend, frontend, dispositivos y edge
+OmniSens-Industrial-Suite/  
+├── README.md           <- Este archivo 
+├── LICENSE             <- Licencia del proyecto  
+├── docs/               <- Documentación adicional (arquitectura, API, manuales)   
+│   ├── architecture.md   
+│   ├── device-specs.md   
+│   ├── integration.md  
+│   └── roadmap.md  
+├── hub/                <- Código del OmniSens Hub (backend + frontend)  
+│   ├── backend/        <- Microservicios, APIs, base de datos, módulo de análisis  
+│   └── frontend/       <- Panel de usuario, dashboards, visualizaciones  
+├── devices/            <- Firmwares y código para los dispositivos IoT (sensores)  
+│   ├── gasguard/  
+│   ├── tempwatch/  
+│   └── liquidmonitor/  
+├── edge/               <- Código de Gateways / Edge nodes y concentradores industriales  
+│   ├── gateways-iot/          # Gateways ligeros (ESP32, Raspberry Pi)  
+│   │   ├── edge-client-esp32/  
+│   │   └── edge-client-raspberry/    
+│   ├── industrial-concentrators/  # Controladores industriales (PROFIBUS, Modbus)   
+│   │   ├── concentrator-profibus/  
+│   │   └── concentrator-modbus/  
+│   └── edge-bridge/           # Código para la conexión Edge -> OmniSens Hub  
+├── configs/            <- Archivos de configuración (red, protocolos, seguridad, ambientes)  
+├── deployments/        <- Scripts de despliegue (Docker, Kubernetes, etc.)  
+└── tests/              <- Tests de backend, frontend, dispositivos y edge  
+
 --------------------------------------------------------------------------------
-Integración Industrial
-OmniSens está diseñado para operar como una solución complementaria e integrable dentro del ecosistema industrial existente de un cliente. Está preparado para integrarse con sistemas como SCADA, MES, DCS, ERP y GMAO mediante:
-•
-Protocolos Industriales Estándar: Soporte para OPC-UA, Modbus RTU/TCP, EtherNet/IP, y PROFIBUS DP/PA (especialmente a través de los concentradores industriales en la capa Edge).
-•
-API RESTful Abierta: Para una integración flexible con otras aplicaciones y sistemas empresariales.
-•
-Conexión Directa con SCADA/MES/DCS: Posibilidad de integrar alarmas y eventos críticos en tiempo real, facilitando la visibilidad en los sistemas de control de planta.
+## Integración Industrial  
+
+OmniSens está diseñado para operar como una solución complementaria e integrable dentro del ecosistema industrial existente de un cliente.  
+Está preparado para integrarse con sistemas como SCADA, MES, DCS, ERP y GMAO mediante protocolos Industriales Estándar:  
+- Soporte para OPC-UA, Modbus RTU/TCP, EtherNet/IP, y PROFIBUS DP/PA (especialmente a través de los concentradores industriales en la capa Edge).
+- API RESTful Abierta: Para una integración flexible con otras aplicaciones y sistemas empresariales.
+- Conexión Directa con SCADA/MES/DCS: Posibilidad de integrar alarmas y eventos críticos en tiempo real, facilitando la visibilidad en los sistemas de control de planta.
+  
 Más detalles sobre la estrategia de integración se encuentran en docs/integration.md.
 --------------------------------------------------------------------------------
 Documentación
