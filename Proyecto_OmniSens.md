@@ -169,75 +169,59 @@ La documentación técnica del proyecto se encuentra en la carpeta docs/ e inclu
 -  roadmap.md: Hoja de ruta del desarrollo del proyecto, incluyendo fases y prioridades.
 -  LICENSE: Información sobre la licencia del proyecto.
 --------------------------------------------------------------------------------
-Hoja de Ruta (Roadmap)
-El proyecto sigue un roadmap definido para su desarrollo progresivo. Las fases principales incluyen la definición de la estructura inicial, el desarrollo del OmniSens Hub (SaaS), el desarrollo de la capa Edge (Gateways y Concentradores) y la implementación de las integraciones industriales.
-Consulta la hoja de ruta completa para más detalles sobre las fases, entregables y prioridades.
+## Hoja de Ruta (Roadmap)  
+El proyecto sigue un roadmap definido para su desarrollo progresivo.   
+Las fases principales incluyen:  
+- La definición de la estructura inicial.
+- El desarrollo del OmniSens Hub (SaaS)
+- El desarrollo de la capa Edge (Gateways y Concentradores) y la implementación de las integraciones industriales.
+  Consulta la hoja de ruta completa para más detalles sobre las fases, entregables y prioridades.
+  
 --------------------------------------------------------------------------------
-Estado del Proyecto
-En desarrollo inicial: Definición de arquitectura y primeros módulos. Fase 1 según el Roadmap.
+## Estado del Proyecto  
+  
+  - En desarrollo inicial: Definición de arquitectura y primeros módulos.   
+  Fase 1 según el Roadmap.
 --------------------------------------------------------------------------------
-Licencia
-Este proyecto se encuentra bajo la Licencia MIT. Ver el archivo LICENSE para más detalles.
+## Licencia
+- Este proyecto se encuentra bajo la Licencia MIT. Ver el archivo LICENSE para más detalles.
 --------------------------------------------------------------------------------
-Instalación
-OmniSens Industrial Suite está dividido en varios componentes. A continuación se detallan los pasos básicos para instalar y configurar los módulos principales. Se proporcionarán guías detalladas en el futuro.
-1.
-OmniSens Hub (SaaS):
-◦
-Guía de configuración del Hub (Próximamente)
-◦
-Requisitos del sistema (Próximamente)
-◦
-Cómo conectar dispositivos al Hub (Próximamente)
-2.
-OmniSens Edge Controller / Gateways:
-◦
-Especificaciones del dispositivo Edge (docs/device-specs.md)
-◦
-Guía para configurar los dispositivos Edge (Próximamente)
+## Instalación
+OmniSens Industrial Suite está dividido en varios componentes.   
+A continuación se detallan los pasos básicos para instalar y configurar los módulos principales.   
+Se proporcionarán guías detalladas en el futuro.
+1. OmniSens Hub (SaaS):
+◦ Guía de configuración del Hub (Próximamente)
+◦ Requisitos del sistema (Próximamente)
+◦ Cómo conectar dispositivos al Hub (Próximamente)
+2. OmniSens Edge Controller / Gateways:
+◦ Especificaciones del dispositivo Edge (docs/device-specs.md)
+◦ Guía para configurar los dispositivos Edge (Próximamente)
+
 --------------------------------------------------------------------------------
-Desarrollo y Contribución
-¡Las contribuciones son bienvenidas! Si deseas contribuir al proyecto, por favor sigue los siguientes pasos:
-1.
-Haz un fork del repositorio y clona tu fork localmente.
-2.
-Crea una nueva rama para tu feature o corrección (git checkout -b feature/nombre-de-tu-feature).
-3.
-Desarrolla tu código, asegurándote de seguir las convenciones del proyecto.
-4.
-Agrega pruebas unitarias y de integración si es posible.
-5.
-Comprueba que todos los tests pasan.
-6.
-Realiza un commit (git commit -m "feat: Descripción breve del cambio").
-7.
-Sube tus cambios a tu fork (git push origin feature/nombre-de-tu-feature).
-8.
-Abre un Pull Request (PR) desde tu rama hacia la rama principal del repositorio original (generalmente main o develop). Describe claramente el cambio realizado y por qué es necesario.
-Si tienes dudas o necesitas más contexto, consulta la documentación técnica.
+## Desarrollo y Contribución  
+
+¡Las contribuciones son bienvenidas! Si desea contribuir al proyecto, por favor siga los siguientes pasos:
+1. Haga un fork del repositorio y clone tu fork localmente.
+2. Cree una nueva rama para su feature o corrección (git checkout -b feature/nombre-de-su-feature).
+3. Desarrolla su código, asegurándote de seguir las convenciones del proyecto.
+4. Agregue pruebas unitarias y de integración si es posible.
+5.Compruebe que todos los tests pasan.
+6. Realice un commit (git commit -m "feat: Descripción breve del cambio").
+7. Suba sus cambios a su fork (git push origin feature/nombre-de-su-feature).
+8. Abra un Pull Request (PR) desde su rama hacia la rama principal del repositorio original (generalmente main o develop).
+Describa claramente el cambio realizado y por qué es necesario.
+Si tiene dudas o necesita más contexto, consulte la documentación técnica.
+
 --------------------------------------------------------------------------------
-Próximos Pasos
+## Próximos Pasos  
+
 Como próximos pasos inmediatos para el proyecto, tenemos planificado:
-•
-Comenzar con un prototipo funcional de un dispositivo de una línea (ej: GasGuard Basic) y un dashboard básico.
-•
-Realizar una versión de prueba con los primeros sensores y la conexión al Hub.
-•
-Probar la integración con sistemas SCADA o simulaciones de entornos industriales reales.
-•
-Continuar el desarrollo del OmniSens Hub (backend y frontend).
-•
-Implementar la seguridad de forma robusta en todas las capas.
-•
-Definir y desarrollar el primer Edge Controller personalizado (OmniSens Edge Controller v1).
+- Comenzar con un prototipo funcional de un dispositivo de una línea (ej: GasGuard Basic) y un dashboard básico.
+- Realizar una versión de prueba con los primeros sensores y la conexión al Hub.
+- Probar la integración con sistemas SCADA o simulaciones de entornos industriales reales.
+- Continuar el desarrollo del OmniSens Hub (backend y frontend).
+- Implementar la seguridad de forma robusta en todas las capas.
+- Definir y desarrollar el primer Edge Controller personalizado (OmniSens Edge Controller v1).
+  
 --------------------------------------------------------------------------------
-¡Gracias por ser parte de este proyecto! ¡Esperamos que sea tan exitoso como parece! 🌟
---------------------------------------------------------------------------------
-(¡Y sí, en cuanto el proyecto avance, tendremos ese asado para celebrar los logros! 😉)
-
-Este README contiene todos los elementos que discutimos: la descripción general y los productos principales [1-3, 8], la arquitectura general con su diagrama Mermaid [2, 7, 9, 13], la tabla relacionando las capas IoT con las carpetas del repositorio (basada en la discusión de [5, 12, 14, 16-18, 27] y solicitada en [15]), la estructura de carpetas [2, 18], la integración industrial detallada [4, 15-17, 19, 20], enlaces a la documentación en `/docs` [17, 18, 28], el roadmap [6, 24, 29], el estado del proyecto [8, 17], la licencia [17], secciones para instalación y contribución (basadas en [30]), y los próximos pasos [25].
-
-Está formateado en Markdown y listo para ser copiado y pegado en tu repositorio de GitHub. Las referencias a los archivos `architecture.md`, `device-specs.md`, `integration.md` y `roadmap.md` asumen que los crearás con el contenido que generamos previamente [6, 13, 19, 20, 24, 29, 31].
-
-¡Mucha suerte con la presentación al equipo! Con esta base, seguro que les encantará la dirección del proyecto.
-NotebookLM puede ofrecer respuestas inexactas. Compruébalas.
