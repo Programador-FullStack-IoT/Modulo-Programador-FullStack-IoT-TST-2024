@@ -159,21 +159,15 @@ Está preparado para integrarse con sistemas como SCADA, MES, DCS, ERP y GMAO me
 - Soporte para OPC-UA, Modbus RTU/TCP, EtherNet/IP, y PROFIBUS DP/PA (especialmente a través de los concentradores industriales en la capa Edge).
 - API RESTful Abierta: Para una integración flexible con otras aplicaciones y sistemas empresariales.
 - Conexión Directa con SCADA/MES/DCS: Posibilidad de integrar alarmas y eventos críticos en tiempo real, facilitando la visibilidad en los sistemas de control de planta.
-  
-Más detalles sobre la estrategia de integración se encuentran en docs/integration.md.
+  Más detalles sobre la estrategia de integración se encuentran en docs/integration.md.
 --------------------------------------------------------------------------------
-Documentación
-La documentación técnica del proyecto se encuentra en la carpeta docs/ e incluye:
-•
-architecture.md: Explicación detallada de la arquitectura general y el flujo de datos.
-•
-device-specs.md: Listado y características de los dispositivos de sensado, Gateways IoT y Concentradores Industriales propuestos (incluyendo modelos comerciales sugeridos como Siemens IoT2040, Advantech ECU-1251, Siemens S7-1200).
-•
-integration.md: Detalles técnicos de la integración con sistemas SCADA, MES, ERP y los protocolos industriales soportados.
-•
-roadmap.md: Hoja de ruta del desarrollo del proyecto, incluyendo fases y prioridades.
-•
-LICENSE: Información sobre la licencia del proyecto.
+## Documentación  
+La documentación técnica del proyecto se encuentra en la carpeta docs/ e incluye:  
+- architecture.md: Explicación detallada de la arquitectura general y el flujo de datos.
+- device-specs.md: Listado y características de los dispositivos de sensado, Gateways IoT y Concentradores Industriales propuestos (incluyendo modelos comerciales sugeridos como Siemens IoT2040, Advantech ECU-1251, Siemens S7-1200).
+-  integration.md: Detalles técnicos de la integración con sistemas SCADA, MES, ERP y los protocolos industriales soportados.
+-  roadmap.md: Hoja de ruta del desarrollo del proyecto, incluyendo fases y prioridades.
+-  LICENSE: Información sobre la licencia del proyecto.
 --------------------------------------------------------------------------------
 Hoja de Ruta (Roadmap)
 El proyecto sigue un roadmap definido para su desarrollo progresivo. Las fases principales incluyen la definición de la estructura inicial, el desarrollo del OmniSens Hub (SaaS), el desarrollo de la capa Edge (Gateways y Concentradores) y la implementación de las integraciones industriales.
