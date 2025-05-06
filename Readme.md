@@ -123,10 +123,11 @@ El proyecto está estructurado en carpetas que buscan reflejar las diferentes ca
 |7. Seguridad | Autenticación, Cifrado, Monitoreo (Transversal) |  configs/, Implementada en devices/, edge/, hub/|  
 
 --------------------------------------------------------------------------------
-Estructura del Repositorio
-La estructura del código y la documentación sigue una organización modular:
+Estructura de archivos del proyecto
+La estructura del código y la documentación sigue una organización modular:  
+
 OmniSens-Industrial-Suite/  
-├── README.md           <- Este archivo 
+├── README.md            
 ├── LICENSE             <- Licencia del proyecto  
 ├── docs/               <- Documentación adicional (arquitectura, API, manuales)   
 │   ├── architecture.md   
