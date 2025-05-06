@@ -1,8 +1,9 @@
 # OmniSens Industrial Suite
 
-**OmniSens Industrial Suite** es una plataforma **IoT** modular, pensada para **monitoreo ambiental en entornos industriales** [1, 2]. Ofrece una solución completa que se adapta a diferentes necesidades de monitoreo, desde gases y temperatura hasta líquidos y otros parámetros críticos para la seguridad industrial y la eficiencia de procesos [1-3].
+**OmniSens Industrial Suite** es una plataforma **IoT** modular, pensada para **monitoreo ambiental en entornos industriales**.   
+Ofrece una solución completa que se adapta a diferentes necesidades de monitoreo, desde gases y temperatura hasta líquidos y otros parámetros críticos para la seguridad industrial y la eficiencia de procesos.
 
-El objetivo es desarrollar la **plataforma SaaS (OmniSens Hub)** y crear familias de software y dispositivos **modulares y escalables** que se integren a este hub central [3, 4]. El sistema está diseñado para ser **adaptable** a cada caso de estudio y cliente [3, 4].
+El objetivo es desarrollar la **plataforma SaaS (OmniSens Hub)** y crear familias de software y dispositivos **modulares y escalables** que se integren a este hub central. El sistema está diseñado para ser **adaptable** a cada caso de estudio y cliente.
 
 ---
 
@@ -26,40 +27,42 @@ El objetivo es desarrollar la **plataforma SaaS (OmniSens Hub)** y crear familia
 
 ## Descripción General
 
-OmniSens Industrial Suite es una familia de productos diseñada para monitorear variables ambientales en entornos industriales, con foco en seguridad, eficiencia y adaptabilidad [1, 2]. Combina tecnologías de **sensores IoT en planta**, **procesamiento local en gateways/edge** y **análisis en la nube (SaaS)** [4].
+OmniSens Industrial Suite es una familia de productos diseñada para monitorear variables ambientales en entornos industriales, con foco en seguridad, eficiencia y adaptabilidad.   
+Combina tecnologías de **sensores IoT en planta**, **procesamiento local en gateways/edge** y **análisis en la nube (SaaS)**.
 
 Ofrece funcionalidades sólidas como:
-*   Visualización de datos en tiempo real [1, 4, 5].
-*   Alertas y notificaciones personalizables (email, SMS, Telegram, etc.) [1, 4-6].
-*   Informes y análisis de datos históricos [1, 4, 5].
-*   Acceso remoto y seguro [1, 4].
-*   Gestión centralizada de dispositivos [5, 7].
+*   Visualización de datos en tiempo real.
+*   Alertas y notificaciones personalizables (email, SMS, Telegram, etc.).
+*   Informes y análisis de datos históricos.
+*   Acceso remoto y seguro.
+*   Gestión centralizada de dispositivos.
 
 ---
 
 ## Productos Principales
 
-La suite OmniSens Industrial incluye [1-3, 8]:
+La suite OmniSens Industrial incluye:
 
-*   **OmniSens Hub**: Plataforma **SaaS** central de integración, visualización, gestión y análisis de datos [1, 2, 7]. Es la "columna vertebral en la nube" del sistema [9].
-*   **OmniSens GasGuard**: Línea de productos para el monitoreo de gases peligrosos en ambientes industriales. Incluye versiones Basic (gases básicos) y Advanced/Pro (gases específicos, detección múltiple) [1, 2].
-*   **OmniSens TempWatch**: Línea de productos para el monitoreo de temperatura en procesos industriales, asegurando rangos seguros. Incluye versiones Basic (alertas email/SMS), Advanced (registro/análisis) y Pro (integración con sistemas de control) [2, 3].
-*   **OmniSens LiquidMonitor**: Línea de productos para el monitoreo de líquidos, detectando presencia o parámetros fuera de rango (nivel, temperatura, pH, etc.). Incluye versiones Basic (nivel), Advanced (múltiples parámetros) y Pro (integración con sistemas de control de procesos) [2, 3].
+*   **OmniSens Hub**: Plataforma **SaaS** central de integración, visualización, gestión y análisis de datos [1, 2, 7]. Es la "columna vertebral en la nube" del sistema.
+*   **OmniSens GasGuard**: Línea de productos para el monitoreo de gases peligrosos en ambientes industriales. Incluye versiones Basic (gases básicos) y Advanced/Pro (gases específicos, detección múltiple).
+*   **OmniSens TempWatch**: Línea de productos para el monitoreo de temperatura en procesos industriales, asegurando rangos seguros. Incluye versiones Basic (alertas email/SMS), Advanced (registro/análisis) y Pro (integración con sistemas de control).
+*   **OmniSens LiquidMonitor**: Línea de productos para el monitoreo de líquidos, detectando presencia o parámetros fuera de rango (nivel, temperatura, pH, etc.). Incluye versiones Basic (nivel), Advanced (múltiples parámetros) y Pro (integración con sistemas de control de procesos).
 
-Todos los productos están integrados a través de OmniSens Hub para gestión remota, alertas, reportes y análisis avanzado de datos [2].
+Todos los productos están integrados a través de OmniSens Hub para gestión remota, alertas, reportes y análisis avanzado de datos.
 
 ---
 
 ## Arquitectura General
 
-OmniSens Industrial Suite está diseñada siguiendo una arquitectura modular que se alinea con las arquitecturas IoT industriales [7, 8]. Se compone de las siguientes capas principales [7, 9-11]:
+OmniSens Industrial Suite está diseñada siguiendo una arquitectura modular que se alinea con las arquitecturas IoT industriales.   
+Se compone de las siguientes capas principales:
 
-*   **Dispositivos IoT / Concentradores Industriales**: Sensores físicos y controladores en planta que miden variables ambientales y actúan [1, 3, 12, 13].
-*   **Gateways Edge**: Equipos opcionales de borde que recolectan datos locales, realizan preprocesamiento/filtrado y aseguran la transmisión hacia el Hub [7, 10, 12, 13].
-*   **OmniSens Hub (Plataforma SaaS)**: Plataforma central en la nube para gestión, visualización, análisis y alertas [5, 7, 10, 13].
-*   **Usuarios / Clientes**: Acceden a la información a través de interfaces (Web, móvil, dashboards) o mediante integración con otros sistemas [5, 7, 10, 13].
+*   **Dispositivos IoT / Concentradores Industriales**: Sensores físicos y controladores en planta que miden variables ambientales y actúan.
+*   **Gateways Edge**: Equipos opcionales de borde que recolectan datos locales, realizan preprocesamiento/filtrado y aseguran la transmisión hacia el Hub.
+*   **OmniSens Hub (Plataforma SaaS)**: Plataforma central en la nube para gestión, visualización, análisis y alertas.
+*   **Usuarios / Clientes**: Acceden a la información a través de interfaces (Web, móvil, dashboards) o mediante integración con otros sistemas.
 
-Aquí se presenta un diagrama simplificado de la arquitectura:
+### Aquí se presenta un diagrama simplificado de la arquitectura:
 
 ```mermaid
 flowchart TD
@@ -95,36 +98,29 @@ flowchart TD
     style Edge Layer fill:#bfb,stroke:#333,stroke-width:2px
     style Cloud Hub fill:#bbf,stroke:#333,stroke-width:2px
     style Usuarios Finales fill:#ffb,stroke:#333,stroke-width:2px
+```
 
 Diagrama detallado disponible en docs/architecture.md.
-Descripción del Flujo de Datos: Los sensores (GasGuard, TempWatch, LiquidMonitor) capturan datos en tiempo real. Estos datos pueden ser enviados directamente al Hub o pasar primero por un Edge Gateway/Controller para agregación, filtrado o decisiones locales. El Edge o los dispositivos envían los datos al OmniSens Hub en la nube. El Hub procesa, almacena y analiza los datos, generando alertas e informes. Los Usuarios Finales acceden a esta información a través de interfaces web o móviles, o se integra con otros sistemas industriales. La Capa de Seguridad se aplica de manera transversal en todos los niveles.
+## Descripción del Flujo de Datos:  
+- Los sensores (GasGuard, TempWatch, LiquidMonitor) capturan datos en tiempo real.  
+- Estos datos pueden ser enviados directamente al Hub o pasar primero por un Edge Gateway/Controller para agregación,  filtrado o decisiones locales.  
+- El Edge o los dispositivos envían los datos al OmniSens Hub en la nube.  
+- El Hub procesa, almacena y analiza los datos, generando alertas e informes.  
+- Los Usuarios Finales acceden a esta información a través de interfaces web o móviles, o se integra con otros sistemas industriales.  
+- La Capa de Seguridad se aplica de manera transversal en todos los niveles.
 --------------------------------------------------------------------------------
-Relación de Capas IoT con el Repositorio
+## Relación de Capas IoT con el Repositorio
 El proyecto está estructurado en carpetas que buscan reflejar las diferentes capas de una arquitectura IoT. Aunque las capas IoT son conceptuales y transversales (especialmente la seguridad), la siguiente tabla muestra una relación aproximada con las carpetas principales del repositorio:
-Capa IoT
-Descripción en OmniSens
-Carpeta(s) en el Repositorio
-1. Percepción
-Sensores físicos (Gases, Temp, Líquidos)
-devices/
-2. Red
-Comunicación entre sensores, Edge y Hub
-devices/, edge/, configs/ (configuración)
-3. Procesamiento
-Pre-procesamiento y lógica en Gateways/Edge
-edge/
-4. Servicios
-Gestión de dispositivos, datos, alertas, APIs (Hub)
-hub/backend/
-5. Aplicación
-Dashboards, Interfaces de usuario (Web/Móvil)
-hub/frontend/
-6. Gestión de Negocios
-Análisis, Reportes, Optimización de Procesos (Hub)
-hub/backend/ (módulo de análisis)
-7. Seguridad
-Autenticación, Cifrado, Monitoreo (Transversal)
-configs/, Implementada en devices/, edge/, hub/
+|Capa IoT | Descripción en OmniSens | Carpeta(s) en el Repositorio|
+|---------|-------------------------|-----------------------------|
+|1. Percepción | Sensores físicos (Gases, Temp, Líquidos) | devices/|
+|2. Red | Comunicación entre sensores, Edge y Hub | devices/, edge/, configs/ (configuración)|
+|3. Procesamiento | Pre-procesamiento y lógica en Gateways/Edge | edge/|
+|4. Servicios | Gestión de dispositivos, datos, alertas, APIs (Hub) | hub/backend/
+|5. Aplicación | Dashboards, Interfaces de usuario (Web/Móvil) | hub/frontend/|
+|6. Gestión de Negocios | Análisis, Reportes, Optimización de Procesos (Hub) | hub/backend/ (módulo de análisis)|
+|7. Seguridad | Autenticación, Cifrado, Monitoreo (Transversal) |  configs/, Implementada en devices/, edge/, hub/|  
+
 --------------------------------------------------------------------------------
 Estructura del Repositorio
 La estructura del código y la documentación sigue una organización modular:
