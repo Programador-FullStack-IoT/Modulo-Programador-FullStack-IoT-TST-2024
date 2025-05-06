@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net">
+  <diagram name="OmniSens Repo Structure" id="G7DTC1bB_KpX1N1ZPiHM">
+    <mxGraphModel>
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Root Node -->
+        <mxCell id="2" value="OmniSens Repo" style="shape=ellipse;fillColor=#DAE8FC;strokeColor=#6C8EBF;fontSize=14" vertex="1" parent="1">
+          <mxGeometry x="400" y="30" width="160" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- devices -->
+        <mxCell id="3" value="devices/" style="shape=rectangle;fillColor=#FFFFFF;strokeColor=#000000" vertex="1" parent="1">
+          <mxGeometry x="100" y="150" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="4" edge="1" parent="1" source="2" target="3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- edge -->
+        <mxCell id="5" value="edge/" style="shape=rectangle;fillColor=#FFFFFF;strokeColor=#000000" vertex="1" parent="1">
+          <mxGeometry x="300" y="150" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="6" edge="1" parent="1" source="2" target="5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- hub -->
+        <mxCell id="7" value="hub/" style="shape=rectangle;fillColor=#FFFFFF;strokeColor=#000000" vertex="1" parent="1">
+          <mxGeometry x="500" y="150" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="8" edge="1" parent="1" source="2" target="7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- configs -->
+        <mxCell id="9" value="configs/" style="shape=rectangle;fillColor=#FFFFFF;strokeColor=#000000" vertex="1" parent="1">
+          <mxGeometry x="700" y="150" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="10" edge="1" parent="1" source="2" target="9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- docs -->
+        <mxCell id="11" value="docs/" style="shape=rectangle;fillColor=#FFFFFF;strokeColor=#000000" vertex="1" parent="1">
+          <mxGeometry x="900" y="150" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="12" edge="1" parent="1" source="2" target="11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Subfolders inside edge -->
+        <mxCell id="13" value="gateways-iot/" style="shape=rectangle;fillColor=#E1D5E7;strokeColor=#9673A6" vertex="1" parent="1">
+          <mxGeometry x="200" y="270" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="14" edge="1" parent="1" source="5" target="13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="15" value="industrial-concentrators/" style="shape=rectangle;fillColor=#E1D5E7;strokeColor=#9673A6" vertex="1" parent="1">
+          <mxGeometry x="300" y="270" width="180" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="16" edge="1" parent="1" source="5" target="15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="17" value="edge-bridge/" style="shape=rectangle;fillColor=#E1D5E7;strokeColor=#9673A6" vertex="1" parent="1">
+          <mxGeometry x="450" y="270" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="18" edge="1" parent="1" source="5" target="17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Subfolders inside hub -->
+        <mxCell id="19" value="backend/" style="shape=rectangle;fillColor=#D5E8D4;strokeColor=#82B366" vertex="1" parent="1">
+          <mxGeometry x="500" y="270" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="20" edge="1" parent="1" source="7" target="19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="21" value="frontend/" style="shape=rectangle;fillColor=#D5E8D4;strokeColor=#82B366" vertex="1" parent="1">
+          <mxGeometry x="650" y="270" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="22" edge="1" parent="1" source="7" target="21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

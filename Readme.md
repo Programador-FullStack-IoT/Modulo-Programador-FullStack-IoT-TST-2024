@@ -1,4 +1,4 @@
-![alt text](./E-%20Assets/IMG-20250426-WA0001.jpg)
+![alt text](./E-%20Assets/logo.png)
 # OmniSens Industrial Suite
 
 **OmniSens Industrial Suite** es una plataforma **IoT** modular, pensada para **monitoreo ambiental en entornos industriales**.   
