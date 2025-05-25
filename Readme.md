@@ -121,12 +121,34 @@ La documentación técnica se encuentra en la carpeta `docs/`, donde podrás enc
 
 ## Hoja de Ruta (Roadmap)
 
-El desarrollo se divide en fases:
-- Prototipo funcional de sensado, transmisión LoRa y control de actuadores.
-- Implementación del servidor y la base de datos.
-- Desarrollo del dashboard para visualización y control.
-- Integración y pruebas en ambientes simulados o reales.
-- Escalado y mejoras iterativas.
+El desarrollo de OmniSens se organiza en las siguientes fases y entregables principales:
+
+### Fase 1: Prototipo Funcional de Sensado y Control
+- [ ] Diseño y armado de red básica de sensores (temperatura, humedad, presión, luminosidad, gases).
+- [ ] Configuración de comunicación LoRa entre microcontroladores (sensado, receptor y actuador).
+- [ ] Implementación de control básico de actuadores (extractores, luces, alarmas).
+- [ ] Documentación de arquitectura y conexiones en `docs/architecture.md`.
+
+### Fase 2: Backend y Base de Datos
+- [ ] Desarrollo del backend (`hub/backend/`) para recibir y almacenar datos.
+- [ ] Configuración y pruebas de la base de datos.
+- [ ] Documentación de la API y endpoints en `docs/integration.md`.
+
+### Fase 3: Dashboard e Interfaz Web
+- [ ] Desarrollo del frontend (`hub/frontend/`) para visualización y control.
+- [ ] Implementación de monitoreo en tiempo real y registro histórico.
+- [ ] Integración de acciones de control remoto desde el dashboard.
+
+### Fase 4: Integración y Pruebas
+- [ ] Integración de módulos (`edge`, `devices`, `hub`).
+- [ ] Pruebas de funcionamiento en entorno simulado o real.
+- [ ] Ajustes y mejoras tras feedback de pruebas.
+
+### Fase 5: Documentación y Escalado
+- [ ] Completar la documentación técnica en `docs/`.
+- [ ] Publicar guías de instalación y uso para todos los módulos.
+- [ ] Planificar siguientes iteraciones (nuevos sensores, protocolos, expansiones).
+
 
 ---
 
