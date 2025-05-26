@@ -123,6 +123,8 @@ La documentación técnica se encuentra en la carpeta `docs/`, donde podrás enc
 
 ---
 
+[![Chat-GPT-Image-25-may-2025-23-56-29.png](https://i.postimg.cc/qM8Wcfr5/Chat-GPT-Image-25-may-2025-23-56-29.png)](https://postimg.cc/bsw68Bsx)
+
 ## Hoja de Ruta (Roadmap)
 
 El desarrollo de OmniSens se organiza en las siguientes fases y entregables principales:
