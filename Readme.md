@@ -38,6 +38,8 @@ El proyecto busca aprovechar prototipos y desarrollos previos, adaptando y escal
 
 ---
 
+[![Chat-GPT-Image-25-may-2025-23-56-13.png](https://i.postimg.cc/59ZMqqC6/Chat-GPT-Image-25-may-2025-23-56-13.png)](https://postimg.cc/RqQ8vtGB)
+
 ## Objetivo del Proyecto
 
 Desarrollar un sistema capaz de:
