@@ -52,7 +52,8 @@ Desarrollar un sistema capaz de:
 ---
 
 ## Arquitectura del Sistema  
-![alt text](./E-%20Assets/arquitectura_proyecto.png)
+
+[![arquitectura-proyecto.png](https://i.postimg.cc/9MhLQ0RX/arquitectura-proyecto.png)](https://postimg.cc/cKFRDsBP)
 
 El sistema está compuesto por:
 - **Sensores ambientales**: Medición de variables críticas.
