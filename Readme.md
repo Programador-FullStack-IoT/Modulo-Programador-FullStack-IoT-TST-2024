@@ -1,4 +1,3 @@
-##                                                              PROGRAMADOR FULLSTACK IOT - GRUPO N°1
 
 ![alt text](./E-%20Assets/logo.png)
 # OmniSens – Sistema de Monitoreo y Control Ambiental Industrial
