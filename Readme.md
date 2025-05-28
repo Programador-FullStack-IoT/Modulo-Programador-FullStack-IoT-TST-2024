@@ -39,7 +39,7 @@ El proyecto busca aprovechar prototipos y desarrollos previos, adaptando y escal
 
 ---
 
-[![Chat-GPT-Image-25-may-2025-23-56-13.png](https://i.postimg.cc/59ZMqqC6/Chat-GPT-Image-25-may-2025-23-56-13.png)](https://postimg.cc/RqQ8vtGB)
+[![Chat-GPT-Image-28-may-2025-01-53-27.png](https://i.postimg.cc/Ssk28qyr/Chat-GPT-Image-28-may-2025-01-53-27.png)](https://postimg.cc/1g73hkVn)
 
 ## Objetivo del Proyecto
 
@@ -125,7 +125,7 @@ La documentación técnica se encuentra en la carpeta `docs/`, donde podrás enc
 
 ---
 
-[![Chat-GPT-Image-25-may-2025-23-56-29.png](https://i.postimg.cc/qM8Wcfr5/Chat-GPT-Image-25-may-2025-23-56-29.png)](https://postimg.cc/bsw68Bsx)
+[![Chat-GPT-Image-28-may-2025-01-53-42.png](https://i.postimg.cc/hjsJ1wvq/Chat-GPT-Image-28-may-2025-01-53-42.png)](https://postimg.cc/tZ1CXBFr)
 
 ## Hoja de Ruta (Roadmap)
 
