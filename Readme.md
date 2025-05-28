@@ -81,7 +81,7 @@ El sistema está compuesto por:
     - **API**: Recibe los datos del broker MQTT y los procesa para autenticar y autorizar a los dispositivos y usuarios.  
     - **Node-red**: recibe los datos de la API y los procesa para analizar y tomar decisiones. Ademas, envía las reacciones a los actuadores a través de MQTT y almacena los datos y resultados de analisis en una base de datos.  
     - **Base de datos**: Aqui se almacena la informacion de los sensores, asi como los analisis realizados por Node-RED para su posterior visualizacion.  
-    - **Grafana**: Grafana se utiliza para crear el dashboard encargado encargado de mostrar los datos historicos y en tiempo real del sistema.
+    - **Grafana**: Grafana se utiliza para crear el dashboard encargado de mostrar los datos historicos y en tiempo real del sistema.
 - **Interfaz web o dashboard**: Monitoreo y control centralizado.  
 
 
