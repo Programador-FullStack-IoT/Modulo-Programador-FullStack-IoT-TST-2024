@@ -7,6 +7,21 @@
 
 ---
 
+## 🧑‍💻 Integrantes
+
+| Nombre                        | GitHub                                 |
+|------------------------------|----------------------------------------|
+| Fernando Gimenez Coria       | [@FerCbr](https://github.com/FerCbr) |
+| Paola Pantoja                | [@PaolaaPantoja](https://github.com/PaolaaPantoja) |
+| Diego Ares                   | [@diegote7](https://github.com/diegote7) |
+| Emma Vilma Gutierrez         | [@emygut](https://github.com/emygut) |
+| Macarena Aylèn Carballo      | [@MacarenaAC](https://github.com/MacarenaAC) |
+| Romina Vanesa Huk            | [@RoHu17](https://github.com/RoHu17) |
+| Juan Diego Gonzalez Antoniazzi | [@JDGA1997](https://github.com/JDGA1997) |
+| Leandro Roldan               | [@pleroldan](https://github.com/pleroldan) |
+| Raul Jara                    | [@r-j28](https://github.com/r-j28) |
+---
+
 ## Descripción General
 
 El objetivo principal de OmniSens es implementar un sistema integral capaz de mantener condiciones óptimas de ambiente, garantizando la seguridad y calidad del aire. Para ello, el sistema incluye un **controlador** que acciona dispositivos como extractores de aire, luces, alarmas sonoras y balizas luminosas. Las acciones del controlador buscan regular parámetros ambientales: por ejemplo, ajustar la velocidad de ventiladores, la intensidad de luces, o activar alarmas cuando los valores de gases o variables ambientales sobrepasen los límites establecidos.
