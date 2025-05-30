@@ -70,7 +70,7 @@ Desarrollar un sistema capaz de:
 
 ## Arquitectura del Sistema  
 
-![TEXTO_ALTERNATIVO](./E-%20Assets/arquitectura_proyecto_ACTUALIZADA.png)
+[![Chat-GPT-Image-30-may-2025-19-56-52.png](https://i.postimg.cc/TPdkMvfs/Chat-GPT-Image-30-may-2025-19-56-52.png)](https://postimg.cc/Bjz5Hy85)
 
 El sistema está compuesto por:
 - **Sensores ambientales**: Medición de variables críticas.  
