@@ -1,6 +1,7 @@
 ## PROGRAMADOR FULLSTACK - GRUPO PLATA
 
-![alt text](./E-%20Assets/logo.png)
+[![logo.png](https://i.postimg.cc/jSWHy389/logo.png)](https://postimg.cc/dhYZY6cm)
+
 # OmniSens – Sistema de Monitoreo y Control Ambiental Industrial
 
 **OmniSens** es un sistema orientado al monitoreo y control ambiental en entornos industriales. Utiliza sensores para medir variables críticas como temperatura, humedad, presión y luminosidad, y transmite estos datos mediante tecnología **LoRa** hacia un servidor en la nube, permitiendo monitoreo y gestión en tiempo real.
