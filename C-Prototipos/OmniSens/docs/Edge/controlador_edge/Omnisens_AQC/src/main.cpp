@@ -102,7 +102,7 @@ void enviarPorLora() {
 // --- Callback para recepción LoRa ---
 void onJsonLora(const String& json) {
     uint8_t pwm; bool r1, r2; uint8_t codAlarma;
-    if (recibo.procesarOrdenes(json, pwm, r1, r2, codAlarma)) {
+    if (recibo.procesarOrdenes(json, NODE_ID, pwm, r1, r2, codAlarma)) {
         pwm_val = pwm;
         rele1_val = r1;
         rele2_val = r2;

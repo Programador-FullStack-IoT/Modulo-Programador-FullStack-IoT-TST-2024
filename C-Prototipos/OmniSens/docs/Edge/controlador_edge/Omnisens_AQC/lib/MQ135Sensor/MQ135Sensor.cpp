@@ -2,10 +2,11 @@
 
 MQ135Sensor::MQ135Sensor(int pin) : mq135(pin) {}
 
-void MQ135Sensor::begin() {
+bool MQ135Sensor::begin() {
     for (int i = 0; i < NUM_READINGS; i++) {
         mq135Readings[i] = 0;
     }
+    return mq135.getRZero() > 0; // Verifica si el sensor se inicializa correctamente
 }
 
 float MQ135Sensor::readFilteredData() {

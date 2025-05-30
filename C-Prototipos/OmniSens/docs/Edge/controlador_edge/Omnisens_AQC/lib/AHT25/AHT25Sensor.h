@@ -10,7 +10,7 @@ private:
 
 public:
     AHT25Sensor();
-    void begin();
+    bool begin();
     bool readData(float &temperature, float &humidity);
 };
 

@@ -2,11 +2,14 @@
 
 BMP280Sensor::BMP280Sensor() {}
 
-void BMP280Sensor::begin() {
+bool BMP280Sensor::begin() {
     if (!bmp.begin(0x76)) { // Dirección I2C puede ser 0x76 o 0x77
         Serial.println("Error: No se encontró el sensor BMP280. Verifica las conexiones!");
-        while (1);
-    }
+        return false;
+        //while (1);
+    } else {
+       return true;
+    } 
 }
 
 bool BMP280Sensor::readData(float &temperature, float &pressure) {

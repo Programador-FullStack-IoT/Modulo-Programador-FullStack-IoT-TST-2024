@@ -2,10 +2,15 @@
 
 AHT25Sensor::AHT25Sensor() {}
 
-void AHT25Sensor::begin() {
+bool AHT25Sensor::begin() {
     if (!aht.begin()) {
         Serial.println("Error: No se encontró el sensor AHT25. Verifica las conexiones!");
-        while (1);
+        return false;
+        //while (1);
+    } 
+    else {
+
+        return true;
     }
 }
 

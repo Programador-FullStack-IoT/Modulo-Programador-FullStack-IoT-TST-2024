@@ -15,7 +15,7 @@ private:
 
 public:
     MQ135Sensor(int pin);
-    void begin();
+    bool begin();
     float readFilteredData();
 };
 

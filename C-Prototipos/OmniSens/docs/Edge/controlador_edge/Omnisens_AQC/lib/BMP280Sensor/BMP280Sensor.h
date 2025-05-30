@@ -10,7 +10,7 @@ private:
 
 public:
     BMP280Sensor();
-    void begin();
+    bool begin();
     bool readData(float &temperature, float &pressure);
 };
 
