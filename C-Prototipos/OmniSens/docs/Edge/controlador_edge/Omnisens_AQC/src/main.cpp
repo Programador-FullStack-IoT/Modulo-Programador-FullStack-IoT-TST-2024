@@ -12,17 +12,24 @@
 #include "DatoJson.h"
 
 // Pines LoRa (ajusta según tu hardware)
-#define LORA_CS   18
+#define LORA_CS   5
 #define LORA_RST  14
 #define LORA_INT  26
 
 // Configuración de Pines sensores/actuadores
-#define MQ135_PIN 34
-#define PWM_PIN 4
-#define RELE_1 0
-#define RELE_2 2
-#define WS2812_PIN 39
+#define MQ135_PIN 39
+#define PWM_PIN 32
+#define RELE_1 33
+#define RELE_2 25
+#define WS2812_PIN 27
 #define LDR_PIN 36
+
+//prototipos de funciones
+void actualizarJson();
+void enviarPorLora();
+void actualizarSensores();
+void actualizarSalidas();
+void onJsonLora(const String& json);
 
 // Instancias globales
 MQ135Sensor mq135(MQ135_PIN);
@@ -50,38 +57,12 @@ uint8_t codigoAlarma = 0;
 String ultimoJson;
 volatile bool jsonActualizado = false;
 
+
 // Tickers
-Ticker sensorTicker;
-Ticker salidaTicker;
-Ticker loraTicker;
+Ticker sensorTicker(actualizarSensores, 100, 0, MILLIS); // 100 ms para sensores
+Ticker salidaTicker(actualizarSalidas, 100, 0, MILLIS); // 100 ms para salidas
+Ticker loraTicker(enviarPorLora, 5000, 0, MILLIS); // 5 segundos para LoRa
 
-// --- Funciones de actualización ---
-void actualizarSensores() {
-    // Lee sensores, maneja errores y actualiza variables globales
-    if (!mq135.begin()) Serial.println("[Error] MQ135 no inicializado");
-    mq135_val = mq135.readFilteredData();
-
-    if (!aht25.begin()) Serial.println("[Error] AHT25 no inicializado");
-    aht25.readData(aht_temp, aht_hum);
-
-    if (!bmp280.begin()) Serial.println("[Error] BMP280 no inicializado");
-    bmp280.readData(bmp_temp, bmp_pres);
-
-    luz = ldr.readLux();
-    // uv = ... // Si hay sensor UV
-
-    // Aquí se puede calcular alarmaGas y codigoAlarma según lógica
-    // alarmaGas = ...
-    // codigoAlarma = ...
-}
-
-void actualizarSalidas() {
-    vel_motor.comandoPWM(pwm_val);
-    salidas.setRele1(rele1_val);
-    salidas.setRele2(rele2_val);
-    // Actualiza visualización
-    baliza.updateLED((int)mq135_val); // Ejemplo: usa mq135 como AQI
-}
 
 void actualizarJson() {
     ultimoJson = envio.generarJson(
@@ -90,13 +71,16 @@ void actualizarJson() {
         luz, uv, pwm_val, rele1_val, rele2_val, alarmaGas, codigoAlarma
     );
     jsonActualizado = true;
-}
-
-void enviarPorLora() {
-    if (jsonActualizado) {
-        com_lora.sendJson(ultimoJson);
-        jsonActualizado = false;
+    if(jsonActualizado) {
+        Serial.println("[JSON] Datos actualizados");
+        
+        Serial.println(envio.generarJsonPretty(NODE_ID, (uint32_t)time(nullptr), AUTH_TOKEN,
+        mq135_val, aht_temp, aht_hum, bmp_temp, bmp_pres,
+        luz, uv, pwm_val, rele1_val, rele2_val, alarmaGas, codigoAlarma));
+    } else {
+        Serial.println("[JSON] Error al actualizar datos");
     }
+    
 }
 
 // --- Callback para recepción LoRa ---
@@ -124,23 +108,74 @@ void setup() {
     bmp280.begin();
     ldr.begin();
     vel_motor.begin();
+    vel_motor.comandoPWM(0); // Inicializa el PWM en 0%
     salidas.begin();
     baliza.begin();
 
-    com_lora.begin(433.0);
+    if (com_lora.begin(433.0)) {
+        Serial.println("[LoRa] Inicializado correctamente");
+    } else {
+        Serial.println("[LoRa] Error al inicializar");
+    }  
+
+    
     com_lora.setDebug(true);
     com_lora.onJsonReceived(onJsonLora);
 
     // Timers periódicos
-    sensorTicker.attach_ms(100, actualizarSensores);
-    salidaTicker.attach_ms(100, actualizarSalidas);
-    loraTicker.attach(5, enviarPorLora);
+    sensorTicker.start();
+    salidaTicker.start();
+    loraTicker.start();
 
     Serial.println("[Sistema] Inicialización completa");
 }
 
 // --- LOOP ---
 void loop() {
+    sensorTicker.update();
+    salidaTicker.update();
+    loraTicker.update();
+    baliza.update(); // Actualiza la baliza
+
     com_lora.loop();
     actualizarJson(); // Siempre actualiza el JSON con los últimos datos
 }
+
+// --- Funciones de actualización ---
+void actualizarSensores() {
+    // Lee sensores, maneja errores y actualiza variables globales
+    if (!mq135.begin()) Serial.println("[Error] MQ135 no inicializado");
+    mq135_val = mq135.readFilteredData();
+
+    if (!aht25.begin()) Serial.println("[Error] AHT25 no inicializado");
+    aht25.readData(aht_temp, aht_hum);
+
+    if (!bmp280.begin()) Serial.println("[Error] BMP280 no inicializado");
+    bmp280.readData(bmp_temp, bmp_pres);
+
+    luz = ldr.readLux();
+    // uv = ... // Si hay sensor UV
+
+    // Aquí se puede calcular alarmaGas y codigoAlarma según lógica
+    // alarmaGas = ...
+    // codigoAlarma = ...
+}
+
+void actualizarSalidas() {
+    vel_motor.comandoPWM(pwm_val);
+    salidas.setRele1(rele1_val);
+    salidas.setRele2(rele2_val);
+    // Actualiza visualización
+    baliza.mostrarEvento((int)mq135_val); // Ejemplo: usa mq135 como AQI
+}
+
+
+
+void enviarPorLora() {
+    if (jsonActualizado) {
+        com_lora.sendJson(ultimoJson);
+        jsonActualizado = false;
+    }
+}
+
+

@@ -14,25 +14,38 @@ const BalizaEvento Baliza_con::tablaEventos[] = {
 };
 
 Baliza_con::Baliza_con(int pin)
-    : strip(8, pin, NEO_GRB + NEO_KHZ800), blinkState(false), codigoEventoActual(0), rele1Activo(false), rele2Activo(false) {}
+    : strip(8, pin, NEO_GRB + NEO_KHZ800), blinkState(false), codigoEventoActual(0), rele1Activo(false), rele2Activo(false), ticker(nullptr, 0, 0, MILLIS) {
+
+    }
 
 void Baliza_con::begin() {
     strip.begin();
     strip.show();
-    ticker.attach_ms(250, [this]() { this->actualizar(); }); // 250ms para parpadeo lento/rápido
-}
-
-// Añadir al final del archivo (antes de la última llave si es necesario)
-void Baliza_con::tickerCallback(Baliza_con* instance) {
-    if (instance) {
-        instance->actualizar();
+    if (!tickerInicializado) {
+        // Reconstruimos el objeto Ticker usando placement new
+        new (&ticker) Ticker(
+            [this]() { this->actualizar(); },  // Lambda como callback
+            250,                               // Intervalo en ms
+            0,                                 // Repeticiones infinitas
+            MILLIS                             // Resolución en milisegundos
+        );
+        
+        ticker.start();
+        tickerInicializado = true;
     }
 }
 
-void Baliza_con::mostrarEvento(uint8_t codigoEvento, bool rele1, bool rele2) {
+// Nuevo método de actualización
+void Baliza_con::update() {
+    if (tickerInicializado) {
+        ticker.update();  // Actualizamos el ticker
+    }
+  }
+
+void Baliza_con::mostrarEvento(uint8_t codigoEvento/*, bool rele1, bool rele2*/) {
     codigoEventoActual = codigoEvento;
-    rele1Activo = rele1;
-    rele2Activo = rele2;
+    //rele1Activo = rele1;
+    //rele2Activo = rele2;
     if (codigoEvento < sizeof(tablaEventos)/sizeof(tablaEventos[0])) {
         eventoActual = tablaEventos[codigoEvento];
     } else {

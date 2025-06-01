@@ -3,8 +3,9 @@
 SalidaPWM::SalidaPWM(int pin) : _pin(pin), _duty(0) {}
 
 void SalidaPWM::begin() {
-    ledcAttachPin(_pin, 0); // Canal 0
     ledcSetup(0, 5000, 8);  // Canal 0, 5kHz, 8 bits de resolución
+    ledcAttachPin(_pin, 0); // Canal 0
+    
     comandoPWM(0); // Inicializa en 0%
 }
 
