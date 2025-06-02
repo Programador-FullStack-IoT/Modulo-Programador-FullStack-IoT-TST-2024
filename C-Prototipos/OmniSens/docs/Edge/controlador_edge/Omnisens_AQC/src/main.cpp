@@ -65,22 +65,27 @@ Ticker loraTicker(enviarPorLora, 5000, 0, MILLIS); // 5 segundos para LoRa
 
 
 void actualizarJson() {
+    int mostrarJson = 0; // Variable para controlar la frecuencia de actualización del JSON
     ultimoJson = envio.generarJson(
         NODE_ID, (uint32_t)time(nullptr), AUTH_TOKEN,
         mq135_val, aht_temp, aht_hum, bmp_temp, bmp_pres,
         luz, uv, pwm_val, rele1_val, rele2_val, alarmaGas, codigoAlarma
     );
     jsonActualizado = true;
-    if(jsonActualizado) {
-        Serial.println("[JSON] Datos actualizados");
-        
-        Serial.println(envio.generarJsonPretty(NODE_ID, (uint32_t)time(nullptr), AUTH_TOKEN,
-        mq135_val, aht_temp, aht_hum, bmp_temp, bmp_pres,
-        luz, uv, pwm_val, rele1_val, rele2_val, alarmaGas, codigoAlarma));
-    } else {
-        Serial.println("[JSON] Error al actualizar datos");
+    mostrarJson++;
+    if (mostrarJson >= 50) { // Cada 50 actualizaciones de sensores
+        mostrarJson = 0; // Reinicia el contador            
+        if(jsonActualizado) {
+            Serial.println("[JSON] Datos actualizados");
+            
+            Serial.println(envio.generarJsonPretty(NODE_ID, (uint32_t)time(nullptr), AUTH_TOKEN,
+            mq135_val, aht_temp, aht_hum, bmp_temp, bmp_pres,
+            luz, uv, pwm_val, rele1_val, rele2_val, alarmaGas, codigoAlarma));
+        } else {
+            Serial.println("[JSON] Error al actualizar datos");
+        }
     }
-    
+        
 }
 
 // --- Callback para recepción LoRa ---
@@ -103,9 +108,9 @@ void setup() {
     while (!Serial);
 
     Wire.begin();
-    mq135.begin();
-    aht25.begin();
-    bmp280.begin();
+    if (!mq135.begin()) Serial.println("[Error] MQ135 no inicializado");
+    if (!aht25.begin()) Serial.println("[Error] AHT25 no inicializado");
+    if (!bmp280.begin()) Serial.println("[Error] BMP280 no inicializado");
     ldr.begin();
     vel_motor.begin();
     vel_motor.comandoPWM(0); // Inicializa el PWM en 0%
@@ -144,13 +149,13 @@ void loop() {
 // --- Funciones de actualización ---
 void actualizarSensores() {
     // Lee sensores, maneja errores y actualiza variables globales
-    if (!mq135.begin()) Serial.println("[Error] MQ135 no inicializado");
+    //if (!mq135.begin()) Serial.println("[Error] MQ135 no inicializado");
     mq135_val = mq135.readFilteredData();
 
-    if (!aht25.begin()) Serial.println("[Error] AHT25 no inicializado");
+    //if (!aht25.begin()) Serial.println("[Error] AHT25 no inicializado");
     aht25.readData(aht_temp, aht_hum);
 
-    if (!bmp280.begin()) Serial.println("[Error] BMP280 no inicializado");
+    //if (!bmp280.begin()) Serial.println("[Error] BMP280 no inicializado");
     bmp280.readData(bmp_temp, bmp_pres);
 
     luz = ldr.readLux();
