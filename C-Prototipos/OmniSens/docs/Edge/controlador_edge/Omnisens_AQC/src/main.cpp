@@ -12,16 +12,16 @@
 #include "DatoJson.h"
 
 // Pines LoRa (ajusta según tu hardware)
-#define LORA_CS   18
+#define LORA_CS   5
 #define LORA_RST  14
 #define LORA_INT  26
 
 // Configuración de Pines sensores/actuadores
-#define MQ135_PIN 34
-#define PWM_PIN 4
-#define RELE_1 0
-#define RELE_2 2
-#define WS2812_PIN 39
+#define MQ135_PIN 39
+#define PWM_PIN 32
+#define RELE_1 33
+#define RELE_2 25
+#define WS2812_PIN 27
 #define LDR_PIN 36
 
 // Instancias globales
