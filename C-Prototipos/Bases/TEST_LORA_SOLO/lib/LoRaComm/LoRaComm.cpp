@@ -1,7 +1,7 @@
 #include "LoRaComm.h"
 
 LoRaComm::LoRaComm(long frequency) : _frequency(frequency) {
-    Serial.println("seteando pines LoRa");
+    //Serial.println("seteando pines LoRa");
     _ss = 5;
     _rst = 14;
     _dio0 = 26;
