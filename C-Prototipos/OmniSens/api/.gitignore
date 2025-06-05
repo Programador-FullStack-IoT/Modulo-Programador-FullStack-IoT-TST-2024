@@ -1,0 +1,32 @@
+# Archivos de configuración sensibles
+.env
+.env.*
+
+# Dependencias de Node.js
+node_modules/
+
+# Archivos de logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+*.log
+
+# Archivos temporales del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Certificados y llaves privadas (para HTTPS)
+certs/
+*.key
+*.crt
+*.pem
+
+# Archivos de bases de datos temporales
+*.sqlite
+*.db
+
+# Salidas de pruebas o builds temporales
+coverage/
+dist/
+build/
