@@ -1,31 +1,34 @@
 # Sensor AHT25
 
-El **AHT25** es un sensor digital de temperatura y humedad con alta precisión y bajo consumo energético. Es ampliamente utilizado en proyectos de IoT y sistemas embebidos para monitoreo ambiental.
+Este módulo implementa la clase `AHT25Sensor`, encargada de inicializar y leer datos del sensor de temperatura y humedad **AHT25**, utilizando la librería oficial `Adafruit_AHTX0`.
 
-## Características principales
-
-- Rango de temperatura: -40°C a +85°C
-- Precisión: ±0.3°C para temperatura, ±3% para humedad relativa
-- Comunicación: I2C
-- Bajo consumo de energía
-- Fácil integración con microcontroladores (Arduino, ESP32, Raspberry Pi, etc.)
-
-## Aplicaciones
-
-- Sistemas de climatización
-- Monitoreo ambiental
-- Agricultura inteligente
-- Proyectos de domótica
-
-## Ejemplo de conexión
-
-| Pin AHT25 | Descripción          | Microcontrolador (ejemplo) |
-|-----------|----------------------|----------------------------|
-| VCC       | Alimentación 3.3V/5V | 3.3V / 5V                  |
-| GND       | Tierra               | GND                        |
-| SDA       | Datos I2C            | Pin SDA del microcontrolador|
-| SCL       | Reloj I2C            | Pin SCL del microcontrolador|
+Forma parte del sistema **OmniSens**, dentro del subsistema de sensores para monitoreo ambiental.
 
 ---
 
-Si quieres, puedo ayudarte a pegar esta info directamente en el README.md dentro de la carpeta que elijas. ¿Cuál carpeta elegís para ponerlo?
+## 📦 Archivos incluidos
+
+- `AHT25Sensor.cpp`: Implementación de la clase.  
+- `AHT25Sensor.h`: Definición de la clase y métodos públicos.  
+- Requiere: librería `Adafruit_AHTX0`.
+
+---
+
+## 🔧 Dependencias
+
+Este módulo depende de la librería oficial **Adafruit AHTX0** para la comunicación con el sensor AHT25.
+
+---
+
+## 📖 Descripción funcional
+
+- Constructor: inicializa el objeto sensor.  
+- `begin()`: Inicializa el sensor AHT25 mediante la librería oficial.  
+- `leerTemperatura()`: Devuelve la temperatura ambiental en grados Celsius.  
+- `leerHumedad()`: Devuelve la humedad relativa en porcentaje.
+
+---
+
+## 💡 ¿Para qué sirve el sensor AHT25?
+
+El sensor AHT25 mide temperatura y humedad ambiental con alta precisión, siendo ideal para aplicaciones de monitoreo ambiental, control climático, y sistemas IoT para el seguimiento de condiciones atmosféricas.
