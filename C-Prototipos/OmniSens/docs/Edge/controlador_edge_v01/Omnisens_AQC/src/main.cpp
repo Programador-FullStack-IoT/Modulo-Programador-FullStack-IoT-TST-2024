@@ -59,9 +59,10 @@ void setup() {
     while (!Serial);
 
     Wire.begin();
-    if (!mq135.begin()) Serial.println("[Error] MQ135 no inicializado");
-    if (!aht25.begin()) Serial.println("[Error] AHT25 no inicializado");
-    if (!bmp280.begin()) Serial.println("[Error] BMP280 no inicializado");
+
+    if (!mq135.begin()) Serial.println("[Advertencia] MQ135 no inicializado");
+    if (!aht25.begin()) Serial.println("[Advertencia] AHT25 no inicializado");
+    if (!bmp280.begin()) Serial.println("[Advertencia] BMP280 no inicializado"); 
     ldr.begin();
     vel_motor.begin();
     vel_motor.comandoPWM(0); // Inicializa el PWM en 0%
