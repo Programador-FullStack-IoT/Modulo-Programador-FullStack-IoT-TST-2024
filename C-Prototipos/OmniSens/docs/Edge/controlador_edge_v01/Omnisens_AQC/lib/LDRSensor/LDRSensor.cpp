@@ -4,6 +4,7 @@ LDRSensor::LDRSensor(int pin) : _pin(pin) {}
 
 void LDRSensor::begin() {
     pinMode(_pin, INPUT);
+    
 }
 
 int LDRSensor::read() {
