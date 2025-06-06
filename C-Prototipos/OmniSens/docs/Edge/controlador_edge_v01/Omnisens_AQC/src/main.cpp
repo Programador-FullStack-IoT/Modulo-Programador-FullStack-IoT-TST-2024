@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include <SPI.h>
 #include <Wire.h>
 #include <Ticker.h>
 #include "MQ135Sensor.h"
@@ -37,12 +38,12 @@ SalidasRele salidas(RELE_1, RELE_2);
 
 
 // LoRa
-//const char* NODE_ID = "AQC_001";
+const String NODE_ID = "AQC_001";
 //const char* AUTH_TOKEN = "clave123";
 LoRaComm lora;
 
 //SensorData 
-SensorData sensorData("AQC_001", &mq135, &bmp280, &aht25, &ldr, &salidas, &vel_motor);
+SensorData sensorData(NODE_ID, &mq135, &bmp280, &aht25, &ldr, &salidas, &vel_motor);
 
 
 Ticker envioTicker; // Ticker para enviar datos
@@ -56,27 +57,64 @@ volatile bool enviarFlag = false;
 // --- SETUP ---
 void setup() {
     Serial.begin(115200);
-    while (!Serial);
+    delay(1000);
 
+    Serial.println("[Sistema] Inicializando...");
+    Serial.println("[Sistema] Configurando pines LoRa ...");
+
+    // Inicialización manual de SPI (por seguridad)
+    SPI.begin(18, 19, 23, LORA_CS);
+
+    // Seteo explícito de pines (aunque LoRaComm ya los usa por defecto)
+    lora.setPins(LORA_CS, LORA_RST, LORA_INT);
+    Serial.println("[Sistema] Pines LoRa configurados");
+    Serial.println("[Sistema] Inicializando modulo comunicacion LoRa ...");
+    
+    if (lora.begin()) {
+        Serial.println("[Sistema]LoRa inicializado correctamente");
+    } else {
+        Serial.println("[Sistema] Fallo al iniciar LoRa");
+    }
+
+    Serial.println("[Sistema] Inicializando comunicacion I2C ...");
+    
+    // Inicialización de Wire (I2C) si es necesario
+    Wire.setPins(21, 22);  // Ajusta los pines SDA y SCL según tu hardware
     Wire.begin();
+    Serial.println("[Sistema] I2C inicializado");
 
-    if (!mq135.begin()) Serial.println("[Advertencia] MQ135 no inicializado");
-    if (!aht25.begin()) Serial.println("[Advertencia] AHT25 no inicializado");
-    if (!bmp280.begin()) Serial.println("[Advertencia] BMP280 no inicializado"); 
+    Serial.println("[Sistema] Iniciando sensores AHT25 y BMP280");
+    if (!aht25.begin()) {
+        Serial.println("[Sistema] Error al iniciar el sensor AHT25");
+    } else {
+        Serial.println("[Sistema] Sensor AHT25 inicializado correctamente");
+    }
+    if (!bmp280.begin()) {
+        Serial.println("[Sistema] Error al iniciar el sensor BMP280");
+    } else {
+        Serial.println("[Sistema] Sensor BMP280 inicializado correctamente");
+    }
+
+    Serial.println("[Sistema] Iniciando sensor MQ135");
+
+    if (!mq135.begin()) {
+        Serial.println("[Sistema] Error al iniciar el sensor MQ135");
+    } else {
+        Serial.println("[Sistema] Sensor MQ135 inicializado correctamente");
+    }
+
+
+    Serial.println("[Sistema] Iniciando sensor LDR");
     ldr.begin();
+
+    Serial.println("[Sistema] Inicializando salida PWM");
     vel_motor.begin();
-    vel_motor.comandoPWM(0); // Inicializa el PWM en 0%
+    vel_motor.comandoPWM(0); // Inicializa el PWM en 0% de forma explicita
+    
+    Serial.println("[Sistema] Inicializando salidas de relé");
     salidas.begin();
     //baliza.begin();
-
-    if (lora.begin()) {
-        Serial.println("[LoRa] Inicializado correctamente");
-    } else {
-        Serial.println("[LoRa] Error al inicializar");
-    }  
-
-    
-    
+    delay(1000); // Espera para asegurar que todo esté listo
     // Timer cada 5s
     envioTicker.attach(5, []() {enviarFlag = true;});
 

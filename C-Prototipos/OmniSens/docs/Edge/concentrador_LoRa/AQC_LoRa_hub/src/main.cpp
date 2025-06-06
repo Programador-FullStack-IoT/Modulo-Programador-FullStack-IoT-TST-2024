@@ -1,98 +1,64 @@
 #include <Arduino.h>
 #include <WiFi.h>
-#include <Ticker.h>
-#include "EnlaceLoraConcentrador.h"
-#include "MqttManager.h"
-#include "DatoJson.h"
+#include "PubSubClient.h"
+#include <SPI.h>
+#include "LoRaComm.h"
 
-// Configuración WiFi y MQTT
+//#include "DatoJson.h"
+
+// Configuración WiFi
 const char* WIFI_SSID = "Fibertel-WiFi032";
 const char* WIFI_PASS = "vuelalto@67";
+
+// Configuración MQTT
 const char* MQTT_SERVER = "telecomunicaciones.ddns.net";
 const int   MQTT_PORT = 2480;
+const char* MQTT_TOPIC = "omnisens/datos/AQC_001"; // Topic base para publicar datos
 
 // LoRa
-#define LORA_CS   18
+#define LORA_CS   5
 #define LORA_RST  14
 #define LORA_INT  26
 
-EnlaceLoraConcentrador lora(LORA_CS, LORA_RST, LORA_INT);
-MqttManager mqtt(MQTT_SERVER, MQTT_PORT);
-DatoJson jsonHelper;
+LoRaComm lora(433E6);
 
-// Timers
-//Ticker loraTicker;
-//Ticker mqttTicker;
 
-// --- Función para publicar datos recibidos por LoRa ---
-void onLoraJsonReceived(const String& json) {
-    Serial.println("[LORA] Recibido JSON por LoRa:");
-    Serial.println(json);
-    String nodeId, token;
-    
-    // Extrae nodeId y token del JSON
-    DynamicJsonDocument doc(512);
-    DeserializationError error = deserializeJson(doc, json);
-    if (error) {
-        Serial.println("[LORA] JSON inválido");
-        return;
-    }
-    nodeId = doc["id"] | "";
-    token = doc["token"] | "";
-    // Validar token aquí si lo deseas
-    // Publicar en MQTT
-    String topic = "omnisens/datos/" + nodeId;
-    Serial.print("[MQTT] Publicando datos en el topic: ");
-    Serial.println(topic);
-    mqtt.publish(topic.c_str(), json.c_str());
-    Serial.print("[MQTT] Publicado en ");
-    Serial.print(topic);
-    Serial.print(": ");
-    Serial.println(json);
-    // Enviar ACK por LoRa
-    Serial.print("[LORA] Enviando ACK a nodo: ");
-    Serial.println(nodeId);
-    lora.sendAck(nodeId);
-}
+WiFiClient espClient;
 
-// --- Función para retransmitir órdenes de MQTT a LoRa ---
-void onMqttOrderReceived(char* topic, byte* payload, unsigned int length) {
-    Serial.print("[MQTT] Orden recibida en topic: ");
-    Serial.println(topic);
-    String json((char*)payload, length);
-    // Aquí podrías validar destinatario, token, etc.
-    Serial.print("[LORA] Retransmitiendo orden por LoRa: ");
-    Serial.println(json);
-    lora.sendJson(json);
-    Serial.print("[LORA] Orden retransmitida: ");
-    //Serial.println(json);
-}
+PubSubClient mqtt(espClient);
+
+
 
 void setup() {
     Serial.begin(115200);
+    delay(1000); // Espera para estabilizar la conexión serial
+    Serial.println("\n\n[Sistema] Nodo concentrador LoRa + MQTT");
     Serial.println("[Sistema] Inicializando concentrador...");
 
-    Serial.print("[WiFi] Conectando a ");
-    Serial.println(WIFI_SSID);
+
+    // Iniciar WiFi
     WiFi.begin(WIFI_SSID, WIFI_PASS);
+    Serial.print("[WiFi] Conectando");
     while (WiFi.status() != WL_CONNECTED) {
         delay(500);
         Serial.print(".");
     }
-    Serial.println("\n[WiFi] Conectado correctamente");
+    Serial.println("\n[WiFi] Conectado a " + String(WIFI_SSID));
+    Serial.print("[WiFi] IP local: ");
+    Serial.println(WiFi.localIP());
+    delay(1000); // Espera para estabilizar la conexión
 
-    Serial.println("[LoRa] Inicializando módulo LoRa...");
-    lora.begin(433.0);
-    lora.setDebug(true);
-    lora.onJsonReceived(onLoraJsonReceived);
-    Serial.println("[LoRa] Módulo LoRa listo");
+    // Iniciar MQTT
+    mqtt.setServer(MQTT_SERVER, MQTT_PORT);
 
-    Serial.println("[MQTT] Inicializando cliente MQTT...");
-    mqtt.setDebug(true);
-    mqtt.onOrderReceived(onMqttOrderReceived);
-    mqtt.connect();
-    Serial.println("[MQTT] Cliente MQTT listo");
-
+    // Iniciar SPI + LoRa
+    SPI.begin(18, 19, 23, LORA_CS);
+    lora.setPins(LORA_CS, LORA_RST, LORA_INT);
+    if (lora.begin()) {
+        Serial.println("[LoRa] Inicializado");
+    } else {
+        Serial.println("[LoRa] ERROR al iniciar");
+    }
     // Timers periódicos
    // loraTicker.attach_ms(50, [](){ lora.loop(); });
    // mqttTicker.attach_ms(100, [](){ mqtt.loop(); });
@@ -101,7 +67,31 @@ void setup() {
 }
 
 void loop() {
-    lora.loop();
-    mqtt.loop();
-    delay(10); // Permite que el sistema respire y evita el watchdog
+  if (!mqtt.connected()) {
+    Serial.print("[MQTT] Reconectando...");
+    while (!mqtt.connected()) {
+      if (mqtt.connect("control_mqtt")) {
+        Serial.println(" conectado.");
+      } else {
+        Serial.print(" fallo (rc=");
+        Serial.print(mqtt.state());
+        Serial.println("), reintentando en 5s");
+        delay(5000);
+      }
+    }
+  }
+
+  mqtt.loop(); // mantiene conexión viva
+
+  // Escuchar LoRa
+  String mensaje = lora.receiveMessage();
+  if (mensaje.length() > 0) {
+    Serial.println("[LoRa] Mensaje recibido: " + mensaje);
+
+    if (mqtt.publish(MQTT_TOPIC, mensaje.c_str())) {
+      Serial.println("[MQTT] Publicado en " + String(MQTT_TOPIC));
+    } else {
+      Serial.println("[MQTT] Fallo al publicar");
+    }
+  }
 }
