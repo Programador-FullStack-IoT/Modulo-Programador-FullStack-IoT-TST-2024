@@ -101,7 +101,7 @@ CREATE TABLE IF NOT EXISTS `OmniSens`.`commands_log` (
   `value` VARCHAR(50) NULL,
   PRIMARY KEY (`id`),
   INDEX `device_id_idx` (` device_id` ASC) VISIBLE,
-  CONSTRAINT `uk_device_id`
+  CONSTRAINT `ek_device_id`
     FOREIGN KEY (` device_id`)
     REFERENCES `OmniSens`.`devices` (`device_id`)
     ON DELETE NO ACTION
