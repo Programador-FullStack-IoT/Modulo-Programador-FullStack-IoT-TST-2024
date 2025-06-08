@@ -11,5 +11,13 @@
         "memory": "cpp",
         "random": "cpp",
         "initializer_list": "cpp"
-    }
+    },
+    "vsmqtt.brokerProfiles": [
+        {
+            "name": "telecomunicaciones",
+            "host": "telecomunicaciones.ddns.net",
+            "port": 2480,
+            "clientId": "vsmqtt_client_b0e7"
+        }
+    ]
 }

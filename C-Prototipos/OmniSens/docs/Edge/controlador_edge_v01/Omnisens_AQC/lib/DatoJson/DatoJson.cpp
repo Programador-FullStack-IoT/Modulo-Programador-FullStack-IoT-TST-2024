@@ -62,7 +62,7 @@ bool DatoJson::procesarOrdenes(const String& json, const String& id, uint8_t& pw
     DeserializationError error = deserializeJson(doc, json);
     if (error) return false;
 
-    if (doc.containsKey("ordenes") && doc[id] == id) {
+    if (doc.containsKey("ordenes") && doc["id"] == id) {
         if (doc["ordenes"].containsKey("pwm")) {
             pwm = doc["ordenes"]["pwm"];
         }

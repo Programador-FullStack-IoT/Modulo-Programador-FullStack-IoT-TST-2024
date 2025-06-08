@@ -1,24 +1,17 @@
+// LoRaComm.cpp
 #include "LoRaComm.h"
+#include <SPI.h>
 
-LoRaComm::LoRaComm(long frequency) : _frequency(frequency) {
-    //Serial.println("seteando pines LoRa");
-    _ss = 5;
-    _rst = 14;
-    _dio0 = 26;
-}
+LoRaComm::LoRaComm(long frequency) : _frequency(frequency), _ss(5), _rst(14), _dio0(26) {}
 
-void LoRaComm::setPins(int ss, int rst, int dio0) {
-    //Serial.println("asignando pines LoRa");
+void LoRaComm::setPins(uint8_t ss, uint8_t rst, uint8_t dio0) {
     _ss = ss;
     _rst = rst;
     _dio0 = dio0;
-    _customPins = true;
 }
 
 bool LoRaComm::begin() {
-    //Serial.println("Configurando LoRa");
-    if (_customPins)
-        LoRa.setPins(_ss, _rst, _dio0);
+    LoRa.setPins(_ss, _rst, _dio0);
     if (!LoRa.begin(_frequency)) {
         Serial.println("[LoRaComm] Error al iniciar LoRa");
         return false;
@@ -30,20 +23,38 @@ bool LoRaComm::begin() {
     return true;
 }
 
-bool LoRaComm::sendMessage(const String &msg) {
+
+bool LoRaComm::sendMessage(const String& message) {
     LoRa.beginPacket();
-    LoRa.print(msg);
-    LoRa.endPacket();
+    LoRa.print(message);
+    LoRa.endPacket(true);
+    LoRa.receive(); // Asegurar que LoRa vuelve a modo escucha
+    Serial.println("[LoRaComm] Mensaje enviado");
     return true;
 }
 
+void LoRaComm::sendMessageSafely(const String& message, unsigned long delayAfterMs) {
+    LoRa.beginPacket();
+    LoRa.print(message);
+    LoRa.endPacket(true);
+    Serial.println("[LoRaComm] Mensaje enviado de forma segura");
+    delay(delayAfterMs);  // Permitir que vuelva a modo escucha
+}
+
 String LoRaComm::receiveMessage() {
-    String incoming = "";
     int packetSize = LoRa.parsePacket();
     if (packetSize) {
+        Serial.print("[LoRaComm] Paquete recibido. Tamaño: ");
+        Serial.println(packetSize);
+
+        String incoming = "";
         while (LoRa.available()) {
-            incoming += (char)LoRa.read();
+            char c = (char)LoRa.read();
+            Serial.print(c); // Debug crudo
+            incoming += c;
         }
+        Serial.println();
+        return incoming;
     }
-    return incoming;
+    return "";
 }

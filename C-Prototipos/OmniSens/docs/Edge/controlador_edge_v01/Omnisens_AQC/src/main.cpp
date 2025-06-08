@@ -1,3 +1,5 @@
+//nodo "control_edge"
+
 #include <Arduino.h>
 #include <SPI.h>
 #include <Wire.h>
@@ -11,6 +13,7 @@
 #include "SalidasRele.h"
 #include "LoRaComm.h"
 #include "SensorData.h"
+#include "DatoJson.h"
 
 // Pines LoRa (ajusta según tu hardware)
 #define LORA_CS   5
@@ -40,11 +43,11 @@ SalidasRele salidas(RELE_1, RELE_2);
 // LoRa
 const String NODE_ID = "AQC_001";
 //const char* AUTH_TOKEN = "clave123";
-LoRaComm lora;
+LoRaComm lora(433E6); 
 
 //SensorData 
 SensorData sensorData(NODE_ID, &mq135, &bmp280, &aht25, &ldr, &salidas, &vel_motor);
-
+DatoJson datoJson;
 
 Ticker envioTicker; // Ticker para enviar datos
 
@@ -69,7 +72,7 @@ void setup() {
     lora.setPins(LORA_CS, LORA_RST, LORA_INT);
     Serial.println("[Sistema] Pines LoRa configurados");
     Serial.println("[Sistema] Inicializando modulo comunicacion LoRa ...");
-    
+
     if (lora.begin()) {
         Serial.println("[Sistema]LoRa inicializado correctamente");
     } else {
@@ -123,6 +126,28 @@ void setup() {
 
 // --- LOOP ---
 void loop() {
+  
+  // --- Recibir comandos ---
+  //String orden = lora.receiveMessage();
+  //if (orden.length() > 0) {
+  if (lora.hasNewMessage()) {
+    String orden = lora.getLastMessage();
+    Serial.println("[LoRa] Comando recibido (callback): " + orden);
+
+    uint8_t pwm;
+    bool r1, r2;
+    uint8_t cod;
+
+    if (datoJson.procesarOrdenes(orden, NODE_ID, pwm, r1, r2, cod)) {
+      vel_motor.comandoPWM(pwm);
+      salidas.setRele1(r1);
+      salidas.setRele2(r2);
+      Serial.printf("[Acción] PWM=%d Rele1=%d Rele2=%d Alarma=%d\n", pwm, r1, r2, cod);
+    } else {
+      Serial.println("[LoRa] Comando no válido o no dirigido a este nodo.");
+    }
+  }
+
   if (enviarFlag) {
     enviarFlag = false;
 
@@ -130,10 +155,14 @@ void loop() {
     Serial.println("[JSON]: " + json);
 
     lora.sendMessage(json);
+
+    LoRa.receive(); // Volver a modo escucha inmediatamente después de enviar
+
     Serial.println("[LoRa]: Mensaje enviado");
+    
   }
 
-  // Otros procesos no bloqueantes si los hay...
+
 }
 
 
