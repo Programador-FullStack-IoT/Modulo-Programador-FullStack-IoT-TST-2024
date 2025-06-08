@@ -6,6 +6,19 @@ Esta API RESTful permite la consulta de datos y el envío de comandos a disposit
 
 ---
 
+## Autenticación
+
+Todas las rutas requieren una API Key enviada en la cabecera HTTP `x-api-key`.
+
+- **Cabecera requerida:**
+  ```
+  x-api-key: <tu_clave_secreta_aqui>
+  ```
+- Si la clave es incorrecta o falta, la API responde con `401 Unauthorized`.
+- Configura tu clave en el archivo `.env` con la variable `API_KEY`.
+
+---
+
 ## Tabla de Contenidos
 - [Arquitectura General](#arquitectura-general)
 - [Guía Rápida de Despliegue](#guía-rápida-de-despliegue)
@@ -137,15 +150,16 @@ flowchart TD
 
 - **Listar dispositivos:**
   ```sh
-  curl -k https://localhost:3000/api/devices
+  curl -k -H "x-api-key: <tu_clave_secreta_aqui>" https://localhost:3000/api/devices
   ```
 - **Obtener datos de un dispositivo:**
   ```sh
-  curl -k "https://localhost:3000/api/devices/esp32-01/data?limit=5"
+  curl -k -H "x-api-key: <tu_clave_secreta_aqui>" "https://localhost:3000/api/devices/esp32-01/data?limit=5"
   ```
 - **Enviar comando:**
   ```sh
   curl -k -X POST https://localhost:3000/api/devices/esp32-01/command \
+    -H "x-api-key: <tu_clave_secreta_aqui>" \
     -H "Content-Type: application/json" \
     -d '{"actuator":"led_azul","value":1}'
   ```
@@ -160,6 +174,8 @@ axios.post('https://localhost:3000/api/devices/esp32-01/command', {
   actuator: 'ventilador',
   value: 'auto',
   params: { minTemp: 22, maxTemp: 28, duration: 300 }
+}, {
+  headers: { 'x-api-key': '<tu_clave_secreta_aqui>' }
 })
 .then(res => console.log(res.data))
 .catch(err => console.error(err.response?.data || err));
