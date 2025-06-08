@@ -1,9 +1,10 @@
-
+// Importamos el servicio MQTT y el servicio de base de datos
 const mqttService = require('../../services/mqttService');
 const dbService = require('../../services/databaseService'); // <--- Importamos el servicio de DB
 
 /**
  * Procesa una petición para enviar un comando a un dispositivo.
+ * Valida el cuerpo de la petición y publica el comando en el tópico MQTT correspondiente.
  */
 async function sendCommand(req, res) {
   const { deviceId } = req.params;
@@ -37,6 +38,7 @@ async function sendCommand(req, res) {
 
 /**
  * Procesa la petición para listar todos los dispositivos únicos.
+ * Llama al servicio de base de datos para obtener los device_id distintos.
  */
 async function listDevices(req, res, next) {
   try {
@@ -49,6 +51,7 @@ async function listDevices(req, res, next) {
 
 /**
  * Procesa la petición para obtener los datos de un dispositivo específico.
+ * Permite limitar la cantidad de registros devueltos mediante un parámetro opcional.
  */
 async function getDeviceData(req, res, next) {
   try {
@@ -67,6 +70,7 @@ async function getDeviceData(req, res, next) {
   }
 }
 
+// Exportamos los controladores para ser usados en las rutas
 module.exports = {
   sendCommand,
   listDevices,

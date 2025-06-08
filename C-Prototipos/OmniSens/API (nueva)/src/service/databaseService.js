@@ -4,14 +4,15 @@ const mysql = require('mysql2/promise');
 const config = require('../config');
 
 // Configuración del pool de conexiones a la base de datos
+// Permite manejar múltiples conexiones simultáneas de manera eficiente.
 const pool = mysql.createPool({
-  host: config.database.host,
-  port: config.database.port,
-  user: config.database.user,
-  password: config.database.password,
-  database: config.database.database,
+  host: config.database.host, // Host de la base de datos
+  port: config.database.port, // Puerto de la base de datos
+  user: config.database.user, // Usuario de la base de datos
+  password: config.database.password, // Contraseña de la base de datos
+  database: config.database.database, // Nombre de la base de datos
   waitForConnections: true,
-  connectionLimit: 10,
+  connectionLimit: 10, // Máximo de conexiones simultáneas
   queueLimit: 0,
 });
 
@@ -19,6 +20,7 @@ const pool = mysql.createPool({
  * Inserta un nuevo registro de medición en la base de datos.
  * @param {string} deviceId - El ID del dispositivo que envía los datos.
  * @param {object} data - El objeto JSON con los datos del sensor.
+ * Se espera que el objeto data contenga las claves correspondientes a las columnas de la tabla.
  */
 async function insertMeasurement(deviceId, data) {
   // Asumimos que la tabla se llama 'Measurements' y las columnas coinciden con las claves del JSON.
@@ -48,6 +50,7 @@ async function insertMeasurement(deviceId, data) {
 
 /**
  * Obtiene una lista de todos los device_id únicos que han reportado mediciones.
+ * Devuelve un array de objetos con los identificadores únicos.
  */
 async function getAllDevices() {
   const query = 'SELECT DISTINCT device_id FROM Measurements ORDER BY device_id ASC';
@@ -65,6 +68,7 @@ async function getAllDevices() {
  * Obtiene los últimos registros de mediciones para un dispositivo específico.
  * @param {string} deviceId - El ID del dispositivo a consultar.
  * @param {number} limit - El número máximo de registros a devolver.
+ * Realiza una consulta ordenada por timestamp descendente y limitada por el parámetro recibido.
  */
 async function getDeviceDataById(deviceId, limit = 10) {
   // Asegurarse de que el límite sea un número para evitar inyecciones
@@ -86,8 +90,8 @@ async function getDeviceDataById(deviceId, limit = 10) {
   }
 }
 
-
 // Verificamos la conexión al iniciar el servicio
+// Esto permite detectar problemas de conexión al arrancar la API.
 pool.getConnection()
   .then(connection => {
     console.log('✅ Conectado exitosamente a la Base de Datos MariaDB');
@@ -97,6 +101,7 @@ pool.getConnection()
     console.error('❌ Error al conectar con la Base de Datos:', err.message);
   });
 
+// Exportamos las funciones principales del servicio de base de datos
 module.exports = {
   insertMeasurement,
   getAllDevices,

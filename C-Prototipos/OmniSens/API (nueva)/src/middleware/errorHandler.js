@@ -3,6 +3,8 @@
 
 /**
  * Middleware para capturar y manejar errores de forma centralizada.
+ * Este middleware debe ser el último en la cadena de middlewares de Express.
+ * Permite capturar cualquier error no gestionado y devolver una respuesta genérica al cliente.
  * @param {Error} err - El objeto de error.
  * @param {object} req - El objeto de petición de Express.
  * @param {object} res - El objeto de respuesta de Express.
@@ -19,4 +21,5 @@ function errorHandler(err, req, res, next) {
   });
 }
 
+// Exportamos el middleware para ser usado en la configuración principal de la API
 module.exports = errorHandler;

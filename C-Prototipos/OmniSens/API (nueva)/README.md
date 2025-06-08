@@ -1,8 +1,79 @@
-# Documentación de la API OmniSens
+# API OmniSens
 
 Esta API RESTful permite la consulta de datos y el envío de comandos a dispositivos IoT integrados en la plataforma OmniSens.
 
-**URL Base:** `http://<host>:<puerto>/api` (Ej: `http://localhost:3000/api`)
+**URL Base:** `https://<host>:<puerto>/api` (Ej: `https://localhost:3000/api`)
+
+---
+
+## Tabla de Contenidos
+- [Arquitectura General](#arquitectura-general)
+- [Guía Rápida de Despliegue](#guía-rápida-de-despliegue)
+- [Endpoints de Dispositivos](#endpoints-de-dispositivos-devices)
+- [Ejemplos de Payloads Avanzados](#ejemplos-de-payloads-avanzados)
+- [Ejemplos de Scripts de Prueba](#ejemplos-de-scripts-de-prueba)
+- [Preguntas Frecuentes (FAQ)](#preguntas-frecuentes-faq)
+- [Recursos y Enlaces Útiles](#recursos-y-enlaces-útiles)
+
+---
+
+## Arquitectura General
+
+```mermaid
+flowchart TD
+    subgraph Usuario
+      A1[Navegador/Cliente]
+    end
+    subgraph API[API OmniSens (Express + HTTPS)]
+      B1[Endpoints REST]
+      B2[Middleware Seguridad]
+      B3[MQTT Service]
+      B4[DB Service]
+    end
+    subgraph IoT[Dispositivos IoT]
+      C1[ESP32/NodeMCU]
+    end
+    subgraph Broker[Broker MQTT (MQTTS)]
+      D1[Broker MQTT]
+    end
+    subgraph DB[Base de Datos MariaDB]
+      E1[Tabla Measurements]
+    end
+    A1-->|HTTPS|B1
+    B1-->|Comandos/Consultas|B3
+    B1-->|Consultas|B4
+    B3-->|MQTTS|D1
+    D1-->|MQTTS|C1
+    C1-->|MQTTS|D1
+    D1-->|MQTTS|B3
+    B4-->|SQL|E1
+    E1-->|Datos|B4
+```
+
+---
+
+## Guía Rápida de Despliegue
+
+1. **Clona el repositorio y entra a la carpeta de la API:**
+   ```sh
+   git clone <url-del-repo>
+   cd C-Prototipos/OmniSens/API\ (nueva)
+   ```
+2. **Instala las dependencias:**
+   ```sh
+   npm install
+   ```
+3. **Configura el archivo `.env`:**
+   - Copia el ejemplo y ajusta las variables según tu entorno (broker, DB, etc).
+4. **Agrega los certificados SSL en la carpeta `certs/`:**
+   - `key.pem` y `cert.pem` para el servidor HTTPS.
+   - `broker-ca.pem` para la conexión MQTTS.
+5. **Inicia el servidor:**
+   ```sh
+   npm start
+   ```
+6. **Prueba la API:**
+   - Accede a `https://localhost:3000/api/devices` para verificar funcionamiento.
 
 ---
 
@@ -10,135 +81,115 @@ Esta API RESTful permite la consulta de datos y el envío de comandos a disposit
 
 ### 1. Listar todos los dispositivos
 
-Obtiene una lista de todos los identificadores (`device_id`) únicos que han enviado datos al sistema.
-
-* **Endpoint:** `GET /devices`
-* **Método:** `GET`
-* **Parámetros de URL:** Ninguno.
-* **Cuerpo de la Petición:** Ninguno.
-
-* **Respuesta Exitosa (Código `200 OK`)**
-
-    Devuelve un array de objetos, cada uno conteniendo el `device_id` de un dispositivo.
-
-    ```json
-    [
-      {
-        "device_id": "esp32-01"
-      },
-      {
-        "device_id": "nodemcu-A4"
-      },
-      {
-        "device_id": "sensor-patio"
-      }
-    ]
-    ```
-
-* **Respuestas de Error**
-    * **Código `500 Internal Server Error`**: Si ocurre un problema al consultar la base de datos.
-        ```json
-        {
-          "success": false,
-          "error": "Ha ocurrido un error interno en el servidor."
-        }
-        ```
-
----
+- **GET** `/devices`
+- Devuelve un array de objetos con los `device_id` únicos.
 
 ### 2. Obtener datos de un dispositivo específico
 
-Recupera los últimos registros de mediciones para un dispositivo específico.
-
-* **Endpoint:** `GET /devices/:deviceId/data`
-* **Método:** `GET`
-* **Parámetros de URL:**
-    * `deviceId` (string, **requerido**): El identificador único del dispositivo.
-
-* **Parámetros de Query:**
-    * `limit` (number, *opcional*): El número máximo de registros a devolver. Si no se especifica, por defecto es `10`.
-        * Ejemplo: `/api/devices/esp32-01/data?limit=5`
-
-* **Cuerpo de la Petición:** Ninguno.
-
-* **Respuesta Exitosa (Código `200 OK`)**
-
-    Devuelve un array de objetos, donde cada objeto es un registro de medición.
-
-    ```json
-    [
-      {
-        "measurement_id": 101,
-        "device_id": "esp32-01",
-        "temperature": 24.5,
-        "humidity": 55.2,
-        "co2": 450,
-        "timestamp": "2025-06-08T10:30:00.000Z"
-      },
-      {
-        "measurement_id": 100,
-        "device_id": "esp32-01",
-        "temperature": 24.6,
-        "humidity": 55.1,
-        "co2": 452,
-        "timestamp": "2025-06-08T10:29:00.000Z"
-      }
-    ]
-    ```
-
-* **Respuestas de Error**
-    * **Código `404 Not Found`**: Si no se encuentran datos para el `deviceId` especificado.
-        ```json
-        {
-          "message": "No se encontraron datos para el dispositivo esp32-01."
-        }
-        ```
-    * **Código `500 Internal Server Error`**: Si ocurre un problema al consultar la base de datos.
-
----
+- **GET** `/devices/:deviceId/data?limit=N`
+- Devuelve los últimos N registros de medición para el dispositivo.
 
 ### 3. Enviar un comando a un dispositivo
 
-Publica un mensaje de comando en el tópico MQTT correspondiente a un dispositivo para que este lo ejecute.
+- **POST** `/devices/:deviceId/command`
+- Cuerpo JSON:
+  ```json
+  {
+    "actuator": "led_azul",
+    "value": 1
+  }
+  ```
 
-* **Endpoint:** `POST /devices/:deviceId/command`
-* **Método:** `POST`
-* **Parámetros de URL:**
-    * `deviceId` (string, **requerido**): El identificador único del dispositivo al que se enviará el comando.
+---
 
-* **Cuerpo de la Petición (JSON, requerido)**
+## Ejemplos de Payloads Avanzados
 
-    Debe contener un objeto JSON con las claves `actuator` y `value`.
+### Ejemplo de datos recibidos de un dispositivo
+```json
+{
+  "temperature": 23.7,
+  "humidity": 58.2,
+  "co2": 420,
+  "pm25": 12.5,
+  "voc": 0.03,
+  "battery": 87
+}
+```
 
-    ```json
-    {
-      "actuator": "led_azul",
-      "value": 1
-    }
-    ```
-    * `actuator` (string): El nombre del actuador a controlar.
-    * `value` (any): El valor o estado a enviar al actuador (puede ser un número, booleano, string, etc.).
+### Ejemplo de comando avanzado
+```json
+{
+  "actuator": "ventilador",
+  "value": "auto",
+  "params": {
+    "minTemp": 22,
+    "maxTemp": 28,
+    "duration": 300
+  }
+}
+```
 
-* **Respuesta Exitosa (Código `200 OK`)**
+---
 
-    Confirma que el comando fue enviado a la cola de MQTT. No garantiza que el dispositivo lo haya recibido o ejecutado.
+## Ejemplos de Scripts de Prueba
 
-    ```json
-    {
-      "message": "Comando enviado exitosamente a esp32-01.",
-      "topic": "devices/esp32-01/command",
-      "command": {
-        "actuator": "led_azul",
-        "value": 1
-      }
-    }
-    ```
+### Usando `curl`
 
-* **Respuestas de Error**
-    * **Código `400 Bad Request`**: Si el cuerpo de la petición no es un JSON válido o le faltan las propiedades requeridas.
-        ```json
-        {
-          "error": "Cuerpo de la petición inválido. Se requiere un objeto con \\"actuator\\" (string) y \\"value\\"."
-        }
-        ```
-    * **Código `500 Internal Server Error`**: Si ocurre un problema al publicar en el broker MQTT.
+- **Listar dispositivos:**
+  ```sh
+  curl -k https://localhost:3000/api/devices
+  ```
+- **Obtener datos de un dispositivo:**
+  ```sh
+  curl -k "https://localhost:3000/api/devices/esp32-01/data?limit=5"
+  ```
+- **Enviar comando:**
+  ```sh
+  curl -k -X POST https://localhost:3000/api/devices/esp32-01/command \
+    -H "Content-Type: application/json" \
+    -d '{"actuator":"led_azul","value":1}'
+  ```
+
+### Usando Node.js (axios)
+
+```js
+const axios = require('axios');
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'; // Solo para pruebas locales
+
+axios.post('https://localhost:3000/api/devices/esp32-01/command', {
+  actuator: 'ventilador',
+  value: 'auto',
+  params: { minTemp: 22, maxTemp: 28, duration: 300 }
+})
+.then(res => console.log(res.data))
+.catch(err => console.error(err.response?.data || err));
+```
+
+---
+
+## Preguntas Frecuentes (FAQ)
+
+**¿Qué pasa si un dispositivo no responde a un comando?**
+- La API solo garantiza que el comando fue publicado en el broker MQTT. No puede asegurar la ejecución en el dispositivo.
+
+**¿Cómo agrego nuevos sensores o campos?**
+- Asegúrate de que la tabla `Measurements` en la base de datos tenga las columnas necesarias y que el firmware del dispositivo envíe los datos en el JSON.
+
+**¿Puedo usar HTTP en vez de HTTPS?**
+- No, por seguridad la API solo expone el puerto HTTPS.
+
+**¿Cómo puedo ver los logs de la API?**
+- Los logs se muestran en la consola donde se ejecuta el servidor. Para producción, se recomienda integrar un sistema de logging.
+
+**¿Qué hago si la API no conecta con el broker o la base de datos?**
+- Verifica las variables de entorno, la red y los certificados. Consulta los mensajes de error en la consola.
+
+---
+
+## Recursos y Enlaces Útiles
+- [Documentación MQTT](https://mqtt.org/documentation)
+- [Express.js](https://expressjs.com/)
+- [MariaDB](https://mariadb.org/)
+- [Mermaid Live Editor](https://mermaid.live/) (para visualizar diagramas)
+
+---
