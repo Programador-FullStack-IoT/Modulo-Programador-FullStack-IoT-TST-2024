@@ -1,14 +1,13 @@
 const express = require('express');
-/**
- * Importa el controlador de comandos.
- * El controlador 'commandController' gestiona la lógica relacionada con los comandos de la aplicación,
- * incluyendo la creación, actualización, eliminación y obtención de comandos.
- * 
- * @module commandController
- */
 const commandController = require('../controllers/commandController');
 const router = express.Router();
+const { apiKeyAuth } = require('../middleware/authMiddleware'); // <-- Importar middleware
 
-router.post('/devices/:deviceId/command', commandController.sendDeviceCommand);
+/**
+ * @route   POST /api/devices/:deviceId/command
+ * @desc    Envía un comando a un dispositivo
+ * @access  Public (por ahora)
+ */
+router.post('/devices/:deviceId/command', apiKeyAuth, commandController.sendCommand); // <-- Middleware aplicado
 
 module.exports = router;

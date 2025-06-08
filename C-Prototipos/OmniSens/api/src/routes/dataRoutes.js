@@ -1,16 +1,20 @@
 const express = require('express');
-/**
- * Controlador que gestiona las operaciones relacionadas con los datos.
- * Importa las funciones necesarias para manejar las solicitudes HTTP
- * asociadas a los datos en la aplicación.
- * 
- * @module dataController
- */
 const dataController = require('../controllers/dataController');
 const router = express.Router();
+const { apiKeyAuth } = require('../middleware/authMiddleware'); // <-- Importar middleware
 
-router.get('/devices', dataController.listDevices);
-router.get('/devices/:deviceId/data', dataController.getDeviceData);
-router.get('/devices/:deviceId/data/latest', dataController.getLatestDeviceData);
+/**
+ * @route   GET /api/devices
+ * @desc    Obtiene una lista de todos los dispositivos
+ * @access  Public (por ahora)
+ */
+router.get('/devices', apiKeyAuth, dataController.listDevices); // <-- Middleware aplicado
+
+/**
+ * @route   GET /api/devices/:deviceId/data
+ * @desc    Obtiene los datos de un dispositivo específico. Soporta ?limit=N
+ * @access  Public (por ahora)
+ */
+router.get('/devices/:deviceId/data', apiKeyAuth, dataController.getDeviceData); // <-- Middleware aplicado
 
 module.exports = router;
