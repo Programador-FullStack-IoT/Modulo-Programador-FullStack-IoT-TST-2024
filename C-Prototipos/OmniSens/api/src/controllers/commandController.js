@@ -1,38 +1,41 @@
-// Importa el servicio MQTT que se encargará de publicar los comandos
+/** * Controlador para manejar comandos enviados a dispositivos a través de MQTT.
+ * Este módulo recibe solicitudes HTTP y envía comandos a dispositivos específicos.
+ * Utiliza el servicio de MQTT para publicar los comandos en el tópico correspondiente.
+ */
+
+
 const mqttService = require('../services/mqttService');
+const config = require('../config');
 
-// Controlador para enviar un comando a un dispositivo
-async function sendDeviceCommand(req, res) {
-  try {
-    // Obtiene el ID del dispositivo desde los parámetros de la ruta
-    const { deviceId } = req.params;
-    // Obtiene el comando desde el cuerpo de la petición
-    const command = req.body;
+/**
+ * Envía un comando a un dispositivo específico a través de MQTT.
+ * @param {object} req - Objeto de solicitud de Express.
+ * @param {object} res - Objeto de respuesta de Express.
+ */
+const sendCommand = (req, res) => {
+  const { deviceId } = req.params;
+  const commandPayload = req.body;
 
-    // Valida que el comando tenga el formato correcto
-    if (!command || typeof command !== 'object' || !command.actuator || !command.action) {
-      return res.status(400).json({ error: 'Formato de comando inválido. Los campos "actuator" y "action" son requeridos en el cuerpo JSON.' });
-    }
-
-    // Publica el comando al dispositivo usando el servicio MQTT
-    mqttService.publishCommand(deviceId, command);
-    
-    // Responde con un estado 202 indicando que el comando fue aceptado
-    res.status(202).json({ message: 'Comando aceptado para enviar al dispositivo', deviceId, command });
-  } catch (error) {
-    // Muestra el error en consola para depuración
-    console.error('Error en el controlador sendDeviceCommand:', error.message);
-    // Maneja el caso en que el cliente MQTT no está conectado
-    if (error.message === 'MQTT client not connected.') {
-        res.status(503).json({ error: 'Servicio no disponible: cliente MQTT no conectado.' });
-    } else {
-        // Maneja otros errores generales
-        res.status(500).json({ error: 'Error al enviar el comando' });
-    }
+  if (!deviceId) {
+    return res.status(400).json({ error: 'El ID del dispositivo es requerido.' });
   }
-}
 
-// Exporta el controlador para ser utilizado en otras partes de la aplicación
+  if (!commandPayload || Object.keys(commandPayload).length === 0) {
+    return res.status(400).json({ error: 'El cuerpo del comando no puede estar vacío.' });
+  }
+
+  // Construir el tópico de comando específico para el dispositivo
+  const topic = config.mqtt.topic.command.replace('{deviceId}', deviceId);
+  const message = JSON.stringify(commandPayload);
+
+  try {
+    mqttService.publishCommand(topic, message);
+    res.status(200).json({ success: true, message: `Comando enviado al dispositivo ${deviceId}.` });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Error interno al enviar el comando.' });
+  }
+};
+
 module.exports = {
-  sendDeviceCommand,
+  sendCommand,
 };

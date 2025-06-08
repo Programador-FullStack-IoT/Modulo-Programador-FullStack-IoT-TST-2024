@@ -1,53 +1,42 @@
+/** * Controlador para manejar los datos entrantes de los sensores.
+ * Este módulo procesa los mensajes recibidos desde el broker MQTT y los valida.
+ * Luego, invoca al servicio de base de datos para almacenar las lecturas de los sensores.
+ */
+
+
 const dbService = require('../services/dbService');
 
-async function getDeviceData(req, res) {
-  try {
-    const { deviceId } = req.params;
-    const { limit, offset, startDate, endDate } = req.query;
-    const data = await dbService.getSensorData(deviceId, { limit, offset, startDate, endDate });
-    res.json(data);
-  } catch (error) {
-    console.error('Error in getDeviceData controller:', error.message);
-    res.status(500).json({ error: 'Failed to retrieve device data' });
-  }
-}
-
 /**
- * Controlador para obtener los datos más recientes de un dispositivo específico.
- *
- * @async
- * @function
- * @param {import('express').Request} req - Objeto de solicitud de Express, debe contener el parámetro deviceId.
- * @param {import('express').Response} res - Objeto de respuesta de Express.
- * @returns {Promise<void>} Devuelve una respuesta JSON con los datos más recientes del dispositivo o un mensaje de error.
+ * Maneja los datos entrantes desde MQTT.
+ * Por ahora, solo valida y muestra los datos en consola.
+ * @param {string} topic - El tópico del que proviene el mensaje.
+ * @param {Buffer} payload - El contenido del mensaje.
  */
-async function getLatestDeviceData(req, res) {
-  try {
-    const { deviceId } = req.params;
-    const data = await dbService.getLatestSensorData(deviceId);
-    if (data) {
-      res.json(data);
-    } else {
-      res.status(404).json({ message: `No data found for device ${deviceId}.` });
-    }
-  } catch (error) {
-    console.error('Error in getLatestDeviceData controller:', error.message);
-    res.status(500).json({ error: 'Failed to retrieve latest device data' });
-  }
-}
+const handleIncomingMqttData = (topic, payload) => {
+  console.log(`Mensaje recibido en el tópico: ${topic}`);
+  
+  // Extraer el deviceId del tópico (ej. de "devices/1234/data" extrae "1234")
+  const topicParts = topic.split('/');
+  const deviceId = topicParts.length > 1 ? topicParts[1] : null;
 
-async function listDevices(req, res) {
-  try {
-    const devices = await dbService.getDevices();
-    res.json(devices);
-  } catch (error) {
-    console.error('Error in listDevices controller:', error.message);
-    res.status(500).json({ error: 'Failed to retrieve devices' });
+  if (!deviceId) {
+    console.error('No se pudo extraer el ID del dispositivo del tópico.');
+    return;
   }
-}
+
+  try {
+    // Convertir el payload (Buffer) a un string y luego a JSON
+    const message = JSON.parse(payload.toString());
+    console.log(`Payload (JSON válido) para ${deviceId}:`, message);
+
+    // Módulo 2: Aquí irá la lógica para guardar en la base de datos.
+    // Ejemplo: dbService.saveSensorData(deviceId, message);
+
+  } catch (error) {
+    console.error(`Error al procesar el mensaje del tópico ${topic}: No es un JSON válido.`, error.message);
+  }
+};
 
 module.exports = {
-  getDeviceData,
-  getLatestDeviceData,
-  listDevices,
+  handleIncomingMqttData,
 };
