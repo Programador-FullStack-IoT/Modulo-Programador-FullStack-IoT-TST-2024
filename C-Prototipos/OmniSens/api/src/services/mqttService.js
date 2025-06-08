@@ -1,17 +1,17 @@
-// Descripción: Este archivo configura y gestiona la conexión a un broker MQTT para recibir datos de sensores.
-// Este archivo es parte del servicio de comunicación MQTT de la API OmniSens.
+// Servicio para la gestión de la comunicación MQTT
+// Configura la conexión, suscripción y publicación de mensajes con el broker MQTT
 
+const mqtt = require('mqtt'); // Importa la librería MQTT
+const config = require('../config'); // Importa la configuración global
+const dataController = require('../controllers/dataController'); // Importa el controlador de datos
 
-const mqtt = require('mqtt');
-const config = require('../config');
-const dataController = require('../controllers/dataController');
+let client; // Cliente MQTT global
 
-let client;
-
+// Función para conectar al broker MQTT y suscribirse a los tópicos necesarios
 const connect = () => {
   console.log(`Conectando al broker MQTT en ${config.mqtt.brokerUrl}...`);
   
-  client = mqtt.connect(config.mqtt.brokerUrl, config.mqtt.options);
+  client = mqtt.connect(config.mqtt.brokerUrl, config.mqtt.options); // Crea la conexión MQTT
 
   client.on('connect', () => {
     console.log('¡Conectado exitosamente al broker MQTT!');
@@ -25,11 +25,13 @@ const connect = () => {
     });
   });
 
+  // Maneja la recepción de mensajes MQTT
   client.on('message', (topic, payload) => {
     // Cuando llega un mensaje, lo pasamos al controlador de datos
     dataController.handleIncomingMqttData(topic, payload);
   });
 
+  // Maneja errores de conexión
   client.on('error', (err) => {
     console.error('Error en el cliente MQTT:', err);
     client.end();
@@ -42,6 +44,8 @@ const connect = () => {
   client.on('close', () => {
     console.log('Conexión MQTT cerrada.');
   });
+};
+
 /**
  * Publica un mensaje en un tópico MQTT específico.
  * @param {string} topic - El tópico al que se publicará el mensaje.
@@ -62,11 +66,12 @@ const publishCommand = (topic, message) => {
   }
 };
 
+// Devuelve la instancia del cliente MQTT (para pruebas o diagnósticos)
 const getClient = () => client;
 
+// Exporta las funciones principales del servicio MQTT
 module.exports = {
   connect,
   getClient,
-  publishCommand, // <-- Exportar la nueva función
+  publishCommand,
 };
-}

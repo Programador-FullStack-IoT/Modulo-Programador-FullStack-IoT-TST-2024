@@ -1,10 +1,12 @@
+// Servicio para la gestión de la base de datos (MariaDB/MySQL)
+// Incluye funciones para CRUD de dispositivos, tipos de sensores y mediciones
 // Descripción: Este servicio maneja la conexión a la base de datos y las operaciones CRUD básicas.
 // Este archivo es parte del servicio de base de datos de la API OmniSens.
 
-const mysql = require('mysql2/promise');
-const config = require('../config');
+const mysql = require('mysql2/promise'); // Importa el cliente MySQL compatible con promesas
+const config = require('../config');      // Importa la configuración global
 
-// Pool de conexiones para mejorar el rendimiento.
+// Pool de conexiones para mejorar el rendimiento y reutilizar conexiones
 const pool = mysql.createPool(config.db);
 
 /**
@@ -76,6 +78,8 @@ const saveSensorData = async (deviceEui, data) => {
   } finally {
     connection.release();
   }
+};
+
 /**
  * Obtiene todos los dispositivos registrados en la base de datos.
  * @returns {Promise<Array>} - Una lista de todos los dispositivos.
@@ -111,10 +115,10 @@ const getMeasurementsByDevice = async (deviceEui, limit = 20) => {
   return rows;
 };
 
+// Exporta las funciones principales del servicio de base de datos
 module.exports = {
   pool,
   saveSensorData,
-  getAllDevices, // <-- Exportar nueva función
-  getMeasurementsByDevice, // <-- Exportar nueva función
+  getAllDevices,
+  getMeasurementsByDevice,
 };
-  }
