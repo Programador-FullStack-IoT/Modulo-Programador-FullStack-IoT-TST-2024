@@ -12,7 +12,7 @@ Esta API RESTful permite la consulta de datos y el envío de comandos a disposit
 - [Endpoints de Dispositivos](#endpoints-de-dispositivos-devices)
 - [Ejemplos de Payloads Avanzados](#ejemplos-de-payloads-avanzados)
 - [Ejemplos de Scripts de Prueba](#ejemplos-de-scripts-de-prueba)
-- [Autenticacion](#autenticacion)
+- [Autenticación](#autenticación)
 - [Preguntas Frecuentes (FAQ)](#preguntas-frecuentes-faq)
 - [Recursos y Enlaces Útiles](#recursos-y-enlaces-útiles)
 
