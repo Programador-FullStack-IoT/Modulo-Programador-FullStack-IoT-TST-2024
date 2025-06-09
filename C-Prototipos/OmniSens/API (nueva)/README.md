@@ -10,6 +10,7 @@ Esta API RESTful permite la consulta de datos y el envío de comandos a disposit
 - [Arquitectura General](#arquitectura-general)
 - [Guía Rápida de Despliegue](#guía-rápida-de-despliegue)
 - [Endpoints de Dispositivos](#endpoints-de-dispositivos-devices)
+- [Endpoints de Usuarios y Métricas para Grafana](#endpoints-de-usuarios-y-métricas-para-grafana)
 - [Ejemplos de Payloads Avanzados](#ejemplos-de-payloads-avanzados)
 - [Ejemplos de Scripts de Prueba](#ejemplos-de-scripts-de-prueba)
 - [Autenticación](#autenticación)
@@ -81,17 +82,14 @@ flowchart TD
 ## Endpoints de Dispositivos (`/devices`)
 
 ### 1. Listar todos los dispositivos
-
 - **GET** `/devices`
 - Devuelve un array de objetos con los `device_id` únicos.
 
 ### 2. Obtener datos de un dispositivo específico
-
 - **GET** `/devices/:deviceId/data?limit=N`
 - Devuelve los últimos N registros de medición para el dispositivo.
 
 ### 3. Enviar un comando a un dispositivo
-
 - **POST** `/devices/:deviceId/command`
 - Cuerpo JSON:
   ```json
@@ -100,6 +98,27 @@ flowchart TD
     "value": 1
   }
   ```
+
+---
+
+## Endpoints de Usuarios y Métricas para Grafana
+
+- **GET /api/users/count**
+  - Devuelve la cantidad total de usuarios registrados.
+  - Respuesta: `{ "count": 42 }`
+
+- **GET /api/users**
+  - Devuelve el listado de usuarios.
+  - Respuesta: `{ "users": [ { "id": 1, "username": "juan", "created_at": "2025-06-09T10:00:00Z" }, ... ] }`
+
+- **GET /api/users/new?from=YYYY-MM-DD&to=YYYY-MM-DD**
+  - Devuelve la cantidad de usuarios creados en el rango de fechas especificado.
+  - Respuesta: `{ "count": 3 }`
+
+Estos endpoints pueden ser consultados desde Grafana para mostrar:
+- api_users(Cantidad usuarios)
+- api_users(usuarios)
+- api_users(Nuevos usuarios)
 
 ---
 
@@ -182,7 +201,7 @@ Todas las rutas requieren una API Key enviada en la cabecera HTTP `x-api-key`.
 - Si la clave es incorrecta o falta, la API responde con `401 Unauthorized`.
 - Configura tu clave en el archivo `.env` con la variable `API_KEY`.
 
----s
+---
 
 ## Preguntas Frecuentes (FAQ)
 

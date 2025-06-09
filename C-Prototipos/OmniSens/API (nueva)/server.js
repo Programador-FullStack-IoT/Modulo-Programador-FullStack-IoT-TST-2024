@@ -2,28 +2,35 @@ const express = require('express');
 const https = require('https');
 const fs = require('fs');
 const helmet = require('helmet');
-
-// --- RUTAS CORREGIDAS ---
 const config = require('./src/config');
 const deviceRoutes = require('./src/routes/deviceRoutes');
+const userRoutes = require('./src/routes/userRoutes');
+const grafanaRoutes = require('./src/routes/grafanaRoutes');
 const errorHandler = require('./src/middleware/errorHandler');
 
 // Iniciar servicios clave (rutas corregidas)
 require('./src/service/databaseService');
 require('./src/service/mqttService');
-// -------------------------
+// -------------------------  
 
 // Crear y configurar la aplicación Express
 const app = express();
+const port = process.env.PORT || 3000;
 app.use(helmet());
 app.use(express.json());
 
 // Configurar las rutas de la API
 app.use('/api', deviceRoutes);
+app.use('/api', userRoutes);
+app.use('/api/grafana', grafanaRoutes);
+app.use('/api/users', userRoutes);
 
 // Usar el middleware de manejo de errores (debe ser el último)
 app.use(errorHandler);
 
+app.listen(port, () => {
+  console.log(`Servidor corriendo en http://localhost:${port}`);
+});
 // Opciones para el servidor HTTPS
 // Nota: Asegúrate de tener una carpeta 'certs' con estos archivos o el servidor fallará.
 // Para una prueba rápida sin HTTPS, puedes comentar todo el bloque https y usar "app.listen"
