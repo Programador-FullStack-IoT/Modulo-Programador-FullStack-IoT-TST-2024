@@ -182,7 +182,7 @@ Todas las rutas requieren una API Key enviada en la cabecera HTTP `x-api-key`.
 - Si la clave es incorrecta o falta, la API responde con `401 Unauthorized`.
 - Configura tu clave en el archivo `.env` con la variable `API_KEY`.
 
----
+---s
 
 ## Preguntas Frecuentes (FAQ)
 

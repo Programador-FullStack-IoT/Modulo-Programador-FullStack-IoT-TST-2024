@@ -2,6 +2,8 @@
 
 # Dependencias
 /node_modules
+../../../../node_modules
+
 
 # Archivo de variables de entorno
 .env
@@ -13,3 +15,5 @@ yarn-error.log*
 
 # Otros
 .DS_Store
+
+
