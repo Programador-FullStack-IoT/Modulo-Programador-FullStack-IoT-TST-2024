@@ -62,18 +62,18 @@ bool DatoJson::procesarOrdenes(const String& json, const String& id, uint8_t& pw
     DeserializationError error = deserializeJson(doc, json);
     if (error) return false;
 
-    if (doc.containsKey("ordenes") && doc["id"] == id) {
-        if (doc["ordenes"].containsKey("pwm")) {
-            pwm = doc["ordenes"]["pwm"];
+    if (doc.containsKey("o") && doc["id"] == id) {
+        if (doc["o"].containsKey("pwm")) {
+            pwm = doc["o"]["pwm"];
         }
-        if (doc["ordenes"].containsKey("rele1")) {
-            rele1 = doc["ordenes"]["rele1"];
+        if (doc["o"].containsKey("r1")) {
+            rele1 = doc["o"]["r1"];
         }
-        if (doc["ordenes"].containsKey("rele2")) {
-            rele2 = doc["ordenes"]["rele2"];
+        if (doc["o"].containsKey("r2")) {
+            rele2 = doc["o"]["r2"];
         }
-        if (doc["ordenes"].containsKey("codigoAlarma")) {
-            codigoAlarma = doc["ordenes"]["codigoAlarma"];
+        if (doc["o"].containsKey("cA")) {
+            codigoAlarma = doc["o"]["cA"];
         }
         return true;
     }
