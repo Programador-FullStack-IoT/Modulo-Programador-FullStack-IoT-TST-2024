@@ -11,7 +11,7 @@ const options = {
   password: config.mqtt.password, // Contraseña para autenticación
   // Opciones TLS/SSL
   // rejectUnauthorized: false, // Poner en 'false' solo para pruebas con certificados autofirmados
-  ca: fs.readFileSync('./certs/broker-ca.pem'), // Certificado de la Autoridad Certificadora del broker
+  //ca: fs.readFileSync('./certs/broker-ca.pem'), // Certificado de la Autoridad Certificadora del broker
 };
 
 // Inicializa el cliente MQTT con las opciones configuradas
