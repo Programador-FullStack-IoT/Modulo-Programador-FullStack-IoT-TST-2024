@@ -23,6 +23,14 @@
 | Raul Jara                    | [@r-j28](https://github.com/r-j28) |
 ---
 
+## 👨‍🏫 Profesores
+
+| Nombre                        | GitHub                                 |
+|------------------------------|----------------------------------------|
+| Mario Gonzalez               | [@mariogonzalezispc](https://github.com/mariogonzalezispc) |
+| Jorge Morales                | [@JorEl057](https://github.com/JorEl057) |
+| Alejandro Mainero            | []() |
+
 ## Descripción General
 
 El objetivo principal de OmniSens es implementar un sistema integral capaz de mantener condiciones óptimas de ambiente, garantizando la seguridad y calidad del aire. Para ello, el sistema incluye una serie de **controladores edge** que reciben los datos de los sensores y accionan dispositivos como extractores de aire, luces, alarmas sonoras y balizas luminosas.  
