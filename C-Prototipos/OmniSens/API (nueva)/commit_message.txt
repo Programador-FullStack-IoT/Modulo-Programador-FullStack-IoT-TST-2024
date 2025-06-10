@@ -1,0 +1,11 @@
+Título: API OmniSens: Seguridad, endpoints REST, métricas Grafana y documentación mejorada
+
+Descripción:
+- Implementado middleware de autenticación por API Key y aplicado a todos los endpoints REST de dispositivos y usuarios.
+- Añadida variable API_KEY en .env y documentada en README.md con ejemplos de uso (curl, Node.js).
+- Agregados endpoints REST para métricas de usuarios (cantidad total, listado, nuevos usuarios en rango) y documentados para integración con Grafana.
+- Mejorada la estructura modular de la API: rutas, controladores y servicios para usuarios y dispositivos.
+- Actualizado .gitignore para ignorar node_modules y archivos sensibles.
+- Confirmado y documentado el puerto de la API (por defecto 3000, configurable por .env).
+- Mejorada la documentación (README.md): ejemplos, payloads, scripts de prueba, autenticación y FAQ.
+- Listo para producción, seguro y preparado para integración con Grafana y otros sistemas.

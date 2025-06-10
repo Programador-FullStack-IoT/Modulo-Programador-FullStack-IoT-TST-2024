@@ -1,46 +1,63 @@
-Lista de Issues para organizar el desarrollo:  
+# 📂 Requisitos y Fases del Proyecto
 
-🔹 Fase 1: Prototipo Funcional de Sensado y Control
-    [ ] Implementar y probar la lectura de sensores (temperatura, humedad, presión, luminosidad, gases).
+> **Carpeta:** `A-Requisitos`  
+> **Descripción:** Esta sección detalla los requisitos y el plan de desarrollo de la plataforma **OmniSens**, organizado en fases incrementales.
 
-    [ ] Configurar la comunicación LoRa entre los microcontroladores Edge y el concentrador.
+---
 
-    [ ] Desarrollar los módulos de control de actuadores (extractores, luces, alarmas).
+## 🚦 Fases del Proyecto
 
-    [ ] Documentar la arquitectura del sistema en docs/architecture.md.
+### 🔵 Fase 1: Prototipo Funcional de Sensado y Control
 
-🔹 Fase 2: Backend y Base de Datos
-    [ ] Definir la estructura de la base de datos y esquemas para el almacenamiento de datos de sensores y eventos del sistema.
+> **Objetivo:** Construir y validar el hardware principal, asegurando la recolección de datos y el control de actuadores.
 
-    [ ] Desarrollar la API en el servidor para recibir datos de MQTT, autenticar y gestionar dispositivos/usuarios.
+- [ ] **Lectura de sensores:** temperatura, humedad, presión, luminosidad, gases.
+- [ ] **Comunicación LoRa:** entre microcontroladores Edge y el concentrador.
+- [ ] **Control de actuadores:** extractores, luces, alarmas.
+- [ ] **Documentación:** arquitectura del sistema en [`docs/architecture.md`](../docs/architecture.md).
 
-    [ ] Configurar el flujo en Node-RED para el procesamiento de datos, análisis y generación de respuestas automáticas.
+---
 
-    [ ] Integrar la API con Node-RED para asegurar que la transmisión de datos sea efectiva.
+### 🟢 Fase 2: Backend y Base de Datos
 
-    [ ] Configurar Grafana para la visualización de datos en tiempo real e históricos.
+> **Objetivo:** Desarrollar la infraestructura de servidor para recibir, almacenar, procesar y visualizar datos.
 
-    [ ] Validar la comunicación entre todos los módulos y documentar la integración en docs/integration.md.
+- [ ] **Definir base de datos:** esquemas para sensores y eventos.
+- [ ] **API del servidor:** recepción de MQTT, autenticación, gestión de dispositivos/usuarios.
+- [ ] **Node-RED:** procesamiento, análisis y respuestas automáticas.
+- [ ] **Integración API + Node-RED:** transmisión de datos efectiva.
+- [ ] **Grafana:** visualización de datos en tiempo real e históricos.
+- [ ] **Validación e integración:** documentar en [`docs/integration.md`](../docs/integration.md).
 
-🔹 Fase 3: Dashboard e Interfaz Web
-    [ ] Desarrollar el frontend en hub/frontend/ para visualizar y gestionar los datos del sistema.
+---
 
-    [ ] Implementar la integración con Grafana para mostrar métricas en tiempo real.
+### 🟡 Fase 3: Dashboard e Interfaz Web
 
-    [ ] Añadir acciones de control remoto desde la interfaz web.
+> **Objetivo:** Crear una interfaz amigable para la interacción y control remoto.
 
-    [ ] Optimizar la interfaz de usuario para una experiencia intuitiva.
+- [ ] **Frontend:** desarrollo en `hub/frontend/` para visualizar y gestionar datos.
+- [ ] **Integración con Grafana:** métricas en tiempo real.
+- [ ] **Acciones remotas:** control desde la web.
+- [ ] **Optimización UX:** experiencia intuitiva.
 
-🔹 Fase 4: Integración y Pruebas
-    [ ] Conectar todos los módulos y validar el flujo de datos entre sensores, LoRa, MQTT, API y Dashboard.
+---
 
-    [ ] Realizar pruebas en entorno simulado y ajustar parámetros de rendimiento y respuesta.
+### 🟠 Fase 4: Integración y Pruebas
 
-    [ ] Mejorar la latencia y eficiencia del procesamiento en los controladores Edge.
+> **Objetivo:** Unificar componentes y realizar pruebas exhaustivas.
 
-🔹 Fase 5: Documentación y Escalado
-    [ ] Completar la documentación técnica y guías de instalación en docs/.
+- [ ] **Conexión de módulos:** validar flujo de datos entre sensores, LoRa, MQTT, API y Dashboard.
+- [ ] **Pruebas simuladas:** ajustar parámetros de rendimiento y respuesta.
+- [ ] **Mejoras en Edge:** latencia y eficiencia.
 
-    [ ] Publicar tutoriales y guías de contribución para facilitar la integración de nuevos colaboradores.
+---
 
-    [ ] Planificar mejoras futuras, como la inclusión de más sensores y nuevos protocolos de comunicación.
+### 🟣 Fase 5: Documentación y Escalado
+
+> **Objetivo:** Finalizar documentación, facilitar colaboración y planificar el crecimiento futuro.
+
+- [ ] **Documentación técnica:** guías de instalación en `docs/`.
+- [ ] **Tutoriales y contribución:** facilitar integración de nuevos colaboradores.
+- [ ] **Planificación de mejoras:** nuevos sensores y protocolos.
+
+---
