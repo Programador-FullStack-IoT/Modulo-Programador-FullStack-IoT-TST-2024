@@ -110,5 +110,82 @@ Contiene el firmware para los dispositivos embebidos (PlatformIO).
      - Conexión WiFi y MQTT (PubSubClient)
      - Deserializa paquetes LoRa (JSON) y publica en MQTT
 
+## 📂 Estructura del directorio
+
+```
+Omnisens/docs/Edge/
+├── sensor-edge/         # Código para nodo sensor (ESP32)
+├── gateway-edge/        # Código para gateway LoRa-MQTT
+├── actuator-edge/       # Código para actuadores (salidas GPIO)
+└── README.md            # Documentación actual
+```
+
+### 🧰 Software
+
+* [PlatformIO](https://platformio.org/)
+* Repositorio clonado:
+
+  ```bash
+  git clone https://github.com/Programador-FullStack-IoT/Modulo-Programador-FullStack-IoT-TST-2024.git
+  ```
+* Docker con servicios activos (ver Portainer):
+  🕻 [http://telecomunicaciones.ddns.net:8080/portainer/#!/3/docker/containers](http://telecomunicaciones.ddns.net:8080/portainer/#!/3/docker/containers)
+
+---
+
+### 🔧 Hardware
+
+* Módulos ESP32, LoRa SX1278
+* Sensores (temperatura, gas, humedad)
+* Actuadores (relés, LED, motores)
+* Cableado y protoboard
+
+  ### 🌐 Servicios desplegados
+
+* **Portainer**: [Contenedores activos](http://telecomunicaciones.ddns.net:8080/portainer/#!/3/docker/containers)
+* **Node-RED (grupo Plata)**: [Dashboard UI](http://telecomunicaciones.ddns.net:8080/nodered_plata/ui/#!/0)
+* **Grafana (Grupo Plata)**: [Panel Público](http://telecomunicaciones.ddns.net:8080/grafana/public-dashboards/51aba874b6f44eff8c361c8ffdba9956)
+
+  ### 🔀 Flujo de datos
+
+1. El sensor transmite vía LoRa al gateway.
+2. El gateway reenvía datos al broker MQTT.
+3. Node-RED suscribe datos y los visualiza.
+4. Grafana extrae métricas de la base de datos.
+5. Node-RED también emite comandos a los actuadores.
+
+---
+
+## 📊 Integración con Node-RED y Grafana
+
+### Node-RED
+
+* Flujo: MQTT → procesamiento → UI → actuador.
+* Ruta: `/nodered_plata/ui/`: [Dashboard UI](http://telecomunicaciones.ddns.net:8080/nodered_plata/ui/#!/0)
+* Incluye botones para control manual, recepción de datos, lógica de automatización.
+
+### Grafana
+
+* Dashboards visuales conectados a base de datos.
+* Panel con temperatura, gas, humedad y estado de actuadores.
+* Ruta directa:
+  [Dashboard público](http://telecomunicaciones.ddns.net:8080/grafana/public-dashboards/51aba874b6f44eff8c361c8ffdba9956)
+
+---
+
+## ✅ Checklist de puesta en marcha
+
+1. Clonar repositorio.
+2. Instalar PlatformIO y dependencias.
+3. Flashear nodos sensor y actuador.
+4. Levantar contenedores Docker (ya disponibles en Portainer).
+5. Confirmar flujo MQTT → Node‑RED → Grafana.
+6. Validar comandos de actuación vía UI.
+
+   ## 📢 Contacto
+
+**Grupo Plata - Tecnicatura en Telecomunicaciones**
+Repositorio: [OmniSens - FullStack IoT](https://github.com/Programador-FullStack-IoT/Modulo-Programador-FullStack-IoT-TST-2024)
+Soporte: vía canal de clase o issues del repositorio.
 
 > ℹ️ **Explora cada carpeta para más detalles sobre la implementación y configuración de cada componente.**
