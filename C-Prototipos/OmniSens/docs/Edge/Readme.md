@@ -110,7 +110,7 @@ Ubicado en `actuator-edge/`:
 ### Node-RED
 
 * Flujo: MQTT → procesamiento → UI → actuador.
-* Ruta: `/nodered_plata/ui/`
+* Ruta: `/nodered_plata/ui/`: [Dashboard UI](http://telecomunicaciones.ddns.net:8080/nodered_plata/ui/#!/0)
 * Incluye botones para control manual, recepción de datos, lógica de automatización.
 
 ### Grafana
