@@ -25,6 +25,11 @@ app.use('/api', userRoutes);
 app.use('/api/grafana', grafanaRoutes);
 app.use('/api/users', userRoutes);
 
+// Ruta de bienvenida para la raíz
+app.get('/', (req, res) => {
+  res.send('API OmniSens funcionando. Consulta los endpoints en /api.');
+});
+
 // Usar el middleware de manejo de errores (debe ser el último)
 app.use(errorHandler);
 
