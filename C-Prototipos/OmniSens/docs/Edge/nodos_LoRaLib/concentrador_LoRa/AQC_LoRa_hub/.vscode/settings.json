@@ -1,0 +1,10 @@
+{
+    "vsmqtt.brokerProfiles": [
+        {
+            "name": "Fernando",
+            "host": "telecomunicaciones.ddns.net",
+            "port": 2480,
+            "clientId": "vsmqtt_client_ad6b"
+        }
+    ]
+}
