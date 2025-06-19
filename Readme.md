@@ -313,7 +313,7 @@ Se diseñó una base de datos optimizada para registrar información ambiental p
 
 La visualización de datos es el paso final del sistema OmniSens, donde la información almacenada en la base de datos es transformada en gráficos, paneles e indicadores comprensibles para facilitar la toma de decisiones.
 
-## 📊 Integración con Node-RED y Grafana
+### 📊 Integración con Node-RED y Grafana
 
 ### Node-RED
 * Permite crear flujos lógicos para procesar, transformar y reenviar datos provenientes de sensores conectados vía MQTT.
