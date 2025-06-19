@@ -169,7 +169,7 @@ Omnisens/docs/Edge/
 * Dashboards visuales conectados a base de datos.
 * Panel con temperatura, gas, humedad y estado de actuadores.
 * Ruta directa:
-  [Dashboard público](http://telecomunicaciones.ddns.net:8080/grafana/public-dashboards/51aba874b6f44eff8c361c8ffdba9956)
+  [Dashboard público](http://telecomunicaciones.ddns.net:8080/grafana/public-dashboards/edbcf99f6c3e44a68703f5246ecef087)
 
 ---
 

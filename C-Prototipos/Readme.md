@@ -226,10 +226,23 @@ Se diseñó una base de datos optimizada para registrar información ambiental p
 
 La visualización de datos es el paso final del sistema OmniSens, donde la información almacenada en la base de datos es transformada en gráficos, paneles e indicadores comprensibles para facilitar la toma de decisiones.
 
-### 🖥️ Herramientas utilizadas:
+## 📊 Integración con Node-RED y Grafana
 
-- **Grafana**: plataforma de visualización en tiempo real, conectada directamente a la base de datos MySQL.
-- **Power BI** *(opcional o complementario)*: herramienta de inteligencia de negocios utilizada para crear dashboards analíticos, informes interactivos y KPIs.
+### Node-RED
+
+* Flujo: MQTT → procesamiento → UI → actuador.
+* Ruta: `/nodered_plata/ui/`: [Dashboard UI](http://telecomunicaciones.ddns.net:8080/nodered_plata/ui/#!/0)
+* Incluye botones para control manual, recepción de datos, lógica de automatización.
+
+### Grafana
+
+* Plataforma de visualización en tiempo real, conectada directamente a la base de datos MySQL.
+* Dashboards visuales conectados a base de datos.
+* Panel con temperatura, gas, humedad y estado de actuadores.
+* Ruta directa:
+  [Dashboard público](http://telecomunicaciones.ddns.net:8080/grafana/public-dashboards/edbcf99f6c3e44a68703f5246ecef087)
+
+---
 
 ### 🧭 Objetivos de la visualización:
 
