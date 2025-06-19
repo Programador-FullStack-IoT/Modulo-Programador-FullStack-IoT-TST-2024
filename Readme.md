@@ -42,29 +42,6 @@ Este **nodo concentrador** envia a su vez todos datos recolectados a un **broker
 
 Toda la información recolectada se analiza en un servidor remoto y es almacenada en una base de datos configurada para este fin, luego se procede a mostrar la informacion en un dashboard. Este diseño permite visualizar la informacion procesada a vez que puese enviar ordenes automaticas o comandos indicados por el usuario.
 
-El proyecto busca aprovechar prototipos y desarrollos previos, adaptando y escalando el enfoque hacia la gestión ambiental industrial. Además, se promueve el trabajo colaborativo y la comunicación de avances con los profesores para su evaluación.
-
----
-
-## Índice
-
-1.  [Descripción General](#descripción-general)
-2.  [Objetivo del Proyecto](#objetivo-del-proyecto)
-3.  [Arquitectura del Sistema](#arquitectura-del-sistema)
-4.  [Componentes Principales](#componentes-principales)
-5.  [Estructura del Repositorio](#estructura-del-repositorio)
-6.  [Integración y Escalabilidad](#integración-y-escalabilidad)
-7.  [Documentación](#documentación)
-8.  [Hoja de Ruta (Roadmap)](#hoja-de-ruta-roadmap)
-9.  [Estado del Proyecto](#estado-del-proyecto)
-10. [Licencia](#licencia)
-11. [Instalación](#instalación)
-12. [Desarrollo y Contribución](#desarrollo-y-contribución)
-13. [Próximos Pasos](#próximos-pasos)
-
----
-
-[![Image-25-may-2025-23-56-13.png](https://i.postimg.cc/59ZMqqC6/Chat-GPT-Image-25-may-2025-23-56-13.png)](https://postimg.cc/RqQ8vtGB)
 
 ## Objetivo del Proyecto
 
@@ -103,15 +80,6 @@ El sistema está compuesto por:
 
 ---
 
-## Componentes Principales
-
-- **Sensores**: Temperatura, humedad, presión, luminosidad, gases.
-- **Red LoRa**: Comunicación eficiente y de largo alcance entre módulos.
-- **Actuadores**: Extractores de aire, luces, alarmas, balizas.
-- **Servidor y Dashboard**: Visualización de datos y control de dispositivos.
-
----
-
 ## Estructura del Repositorio
 
 ```
@@ -146,21 +114,9 @@ El proyecto está pensado para aprovechar y escalar a partir de prototipos y có
 
 ---
 
-## Documentación
-
-La documentación técnica se encuentra en la carpeta `docs/`, donde podrás encontrar:
-- Detalles de la arquitectura y el flujo de datos.
-- Especificaciones de dispositivos y protocolos utilizados.
-- Estrategias de integración y pruebas.
-- Roadmap de desarrollo.
-
----
-
-[![Chat-GPT-Image-28-may-2025-01-53-42.png](https://i.postimg.cc/hjsJ1wvq/Chat-GPT-Image-28-may-2025-01-53-42.png)](https://postimg.cc/tZ1CXBFr)
-
 ## Hoja de Ruta (Roadmap)
 
-El desarrollo de OmniSens se organiza en las siguientes fases y entregables principales:
+El desarrollo de OmniSens se organiza en las siguientes fases:
 
 ### Fase 1: Prototipo Funcional de Sensado y Control
 - [ ] Diseño y armado de red básica de sensores (temperatura, humedad, presión, luminosidad, gases).
@@ -188,7 +144,8 @@ El desarrollo de OmniSens se organiza en las siguientes fases y entregables prin
 - [ ] Publicar guías de instalación y uso para todos los módulos.
 - [ ] Planificar siguientes iteraciones (nuevos sensores, protocolos, expansiones).
 
-
+---
+# Omnisens
 ---
 ## 🧭 1. Introducción y Problemática
 
@@ -234,13 +191,13 @@ El sistema OmniSens está basado en una arquitectura IoT distribuida y escalable
 
 plaintext
 [Sensores] 
-    ↓ 
+    -> 
 [ESP32 (Nodo Sensor)] 
-    ↓ LoRa / WiFi 
+    -> LoRa / WiFi 
 [Gateway MQTT / Servidor] 
-    ↓ 
+    -> 
 [Base de Datos MySQL] 
-    ↓ 
+    -> 
 [Dashboard (Grafana / Power BI)]
 
 ---
@@ -306,13 +263,13 @@ La transmisión de datos en OmniSens se realiza mediante redes inalámbricas opt
 
 ### 🔄 Flujo de comunicación:
 
-plaintext
+
 [ESP32 Nodo Sensor]
-  ↓ LoRa
+  -> LoRa
 [ESP32 Nodo Receptor / Gateway]
-  ↓ MQTT sobre WiFi
+  -> MQTT sobre WiFi
 [Broker MQTT]
-  ↓
+  ->
 [Servidor Backend]
 
 ---
@@ -322,19 +279,11 @@ El backend del sistema OmniSens cumple un rol central en la recepción, validaci
 
 ### 🔙 Funciones principales del backend:
 
-- Recibir datos desde los nodos mediante HTTP o MQTT.
+- Recibir datos desde los nodos mediante MQTT.
 - Validar formato, integridad y valores de los datos.
 - Registrar eventos o comandos generados por el sistema.
 - Almacenar toda la información en una base de datos relacional.
 - Exponer APIs para futuras integraciones con dashboards u otros servicios.
-
-### 🧩 Arquitectura del backend:
-
-- **Lenguaje/entorno**: Node.js
-- **Servidor web/API**: Express
-- **Base de datos**: MariaDB / MySQL
-- **Gestión de datos**: Sequelize u ORM nativo
-- **Contenedores**: Docker (opcional, según implementación)
 
 ### 🗄️ Modelo de Base de Datos Relacional
 
@@ -351,17 +300,10 @@ Se diseñó una base de datos optimizada para registrar información ambiental p
 - `devices.device_id` → se relaciona con `sensor_data.device_id` y `commands_log.device_id`
 - `sensor_data.id` → puede relacionarse con `alerts.sensor_data_id`
 
-### 🧪 Validaciones implementadas:
-
-- Comprobación de rangos válidos (ej.: temperatura entre -40 °C y 85 °C).
-- Eliminación de registros duplicados.
-- Control de campos nulos o mal formateados.
-- Registro de errores y eventos especiales.
-
 ### 📈 Ventajas del diseño:
 
 - Escalable a nuevos sensores y tipos de variables.
-- Compatible con visualizadores como Grafana y Power BI.
+- Compatible con visualizadores como Grafana y Node-Red.
 - Preparado para trazabilidad, alertas y análisis histórico.
 
 > Este backend permite que los datos ambientales capturados por los sensores se conviertan en información estructurada, confiable y accesible para su posterior visualización y análisis.
@@ -374,14 +316,20 @@ La visualización de datos es el paso final del sistema OmniSens, donde la infor
 ## 📊 Integración con Node-RED y Grafana
 
 ### Node-RED
+* Permite crear flujos lógicos para procesar, transformar y reenviar datos provenientes de sensores conectados vía MQTT.
 
+🔧 Funcionalidades implementadas
+
+* Recepción de datos desde ESP32 por MQTT.
+* Filtrado y reenvío de datos a MariaDB.
+* Reglas de control automático
 * Flujo: MQTT → procesamiento → UI → actuador.
 * Ruta: `/nodered_plata/ui/`: [Dashboard UI](http://telecomunicaciones.ddns.net:8080/nodered_plata/ui/#!/0)
 * Incluye botones para control manual, recepción de datos, lógica de automatización.
 
 ### Grafana
 
-* Plataforma de visualización en tiempo real, conectada directamente a la base de datos MySQL.
+* Plataforma de visualización en tiempo real, conectada directamente a la base de datos MariaDB.
 * Dashboards visuales conectados a base de datos.
 * Panel con temperatura, gas, humedad y estado de actuadores.
 * Ruta directa:
@@ -404,24 +352,18 @@ El dashboard se organiza en múltiples secciones:
 1. **Vista general de variables**:
    - Temperatura, humedad, presión y luminosidad por dispositivo.
    - Estado actual, valores máximos y mínimos recientes.
-
-2. **Panel comparativo por sectores o nodos**:
-   - Comparación de valores entre ubicaciones o dispositivos.
-
-3. **Alertas y condiciones críticas**:
-   - Visualización de alertas activas por umbrales excedidos.
-
+2. **Medicion por eventos de valores en crudo**:
+3. **Conteo de cantidad de dispositivos**:
 4. **Históricos y tendencias**:
-   - Gráficos de evolución temporal de cada variable.
-   - Filtros por fecha, nodo o variable.
+5. **Estado de sensores y actuadores**:
+6. **Promedios** 
+7. **Actividad de los reles**
+8. **Identificador de dispositivos**
 
-5. **Indicadores clave (KPIs)**:
-   - Promedios, máximos/mínimos diarios.
-   - Cantidad de alertas, condiciones óptimas mantenidas, etc.
 
 ### 🔗 Conexión de datos:
 
-- **Grafana**: se conecta directamente a la base MySQL mediante consultas SQL configuradas por variable y tabla.
+- **Grafana**: se conecta directamente a la base MariaDB mediante consultas SQL configuradas por variable y tabla.
 - **Power BI**: importa los datos desde MySQL o desde archivos exportados, permitiendo modelado, limpieza y relaciones personalizadas.
 
 > La visualización convierte datos técnicos en información útil y clara, permitiendo interpretar el comportamiento ambiental y tomar decisiones informadas en entornos industriales.
@@ -450,13 +392,13 @@ Además de monitorear el ambiente, el sistema OmniSens es capaz de **actuar auto
 
 El sistema puede actuar de dos formas:
 
-#### 1. **Automatización local en ESP32**:
+#### 1. **Automatización local en ESP32** (Opcional. no se implemento): 
 - El ESP32 analiza el dato leído y, si supera un umbral, activa directamente el actuador conectado.
 - Ejemplo: si `temperatura > 30°C`, activar ventilador.
 
 #### 2. **Automatización centralizada desde el backend**:
 - El servidor recibe los datos y decide activar o no un actuador según reglas definidas.
-- Se envía un comando vía MQTT/HTTP al nodo actuador correspondiente.
+- Se envía un comando vía MQTT al nodo actuador correspondiente.
 
 ### 🗂️ Registro de acciones:
 
@@ -472,27 +414,22 @@ El sistema puede actuar de dos formas:
 - Pruebas con sensores simulados y actuadores reales.
 - Comprobación de fallos: qué ocurre si el actuador no responde.
 
-### 🔒 Seguridad:
-
-- Se pueden establecer reglas para evitar activaciones innecesarias.
-- Control de prioridad y bloqueo si hay condiciones simultáneas.
-
 > La automatización convierte al sistema en una herramienta activa, no solo de monitoreo, sino también de respuesta inteligente ante condiciones que afectan el ambiente de trabajo.
 
 ---
 ## 📅 8. Cronograma y Proceso de Desarrollo
 
-El desarrollo del proyecto OmniSens se organizó en etapas semanales, siguiendo una planificación basada en objetivos específicos y acciones técnicas. Esto permitió avanzar de forma progresiva, validando cada componente del sistema antes de integrarlo.
+El desarrollo del proyecto OmniSens se organizó en etapas, siguiendo una planificación basada en objetivos específicos y acciones técnicas. Esto permitió avanzar de forma progresiva, validando cada componente del sistema antes de integrarlo.
 
 ### 📌 Organización por semanas
 
-| Semana | Objetivo principal | Acciones realizadas |
+| Etapa | Objetivo principal | Acciones realizadas |
 |--------|--------------------|---------------------|
-| **Semana 1** | Diseñar la arquitectura | - Análisis de necesidades del sistema<br>- Selección de topología IoT<br>- Definición de roles: sensores, nodos, gateway, servidor<br>- Primeros diagramas de arquitectura |
-| **Semana 2** | Adquisición de datos | - Conexión de sensores al ESP32<br>- Programación de firmware básico<br>- Pruebas de lectura y calibración<br>- Validación de datos físicos |
-| **Semana 3** | Comunicación inalámbrica | - Configuración de red LoRa y WiFi<br>- Implementación de MQTT/HTTP<br>- Pruebas de transmisión nodo → servidor<br>- Ajustes de cobertura y latencia |
-| **Semana 4** | Backend y base de datos | - Diseño de la base de datos relacional<br>- Creación de APIs de recepción<br>- Almacenamiento de datos desde nodos<br>- Gestión de errores y alertas |
-| **Semana 5** | Visualización y pruebas finales | - Diseño del dashboard (Grafana / Power BI)<br>- Conexión al backend y base de datos<br>- Visualización de datos en tiempo real<br>- Revisión, ajustes y documentación final |
+| **Etapa 1** | Diseñar la arquitectura | - Análisis de necesidades del sistema<br>- Selección de topología IoT<br>- Definición de roles: sensores, nodos, gateway, servidor<br>- Primeros diagramas de arquitectura |
+| **Etapa  2** | Adquisición de datos | - Conexión de sensores al ESP32<br>- Programación de firmware básico<br>- Pruebas de lectura y calibración<br>- Validación de datos físicos |
+| **Etapa  3** | Comunicación inalámbrica | - Configuración de red LoRa y WiFi<br>- Implementación de MQTT/<br>- Pruebas de transmisión nodo → servidor<br>- Ajustes de cobertura y latencia |
+| **Etapa  4** | Backend y base de datos | - Diseño de la base de datos relacional<br>- Creación de APIs de recepción<br>- Almacenamiento de datos desde nodos<br>- Gestión de errores y alertas |
+| **Etapa  5** | Visualización y pruebas finales | - Diseño del dashboard (Grafana / Node-Red)<br>- Conexión al backend y base de datos<br>- Visualización de datos en tiempo real<br>- Revisión, ajustes y documentación final |
 
 ### 🛠️ Metodología aplicada:
 
@@ -512,7 +449,7 @@ El desarrollo del proyecto OmniSens se organizó en etapas semanales, siguiendo 
 ---
 ## ✅ 9. Conclusión, Aplicaciones y Cierre
 
-OmniSens es el resultado de un trabajo colaborativo y multidisciplinario que integra tecnologías de IoT, comunicaciones, desarrollo de software y análisis de datos para resolver una problemática concreta del ámbito industrial: la necesidad de monitorear y controlar variables ambientales de forma precisa y en tiempo real.
+OmniSens es el resultado de un trabajo colaborativo y multidisciplinario que integra tecnologías de IoT, comunicaciones, desarrollo de software y análisis de datos para resolver una problemática concreta del ámbito industrial: la necesidad de monitorear y controlar variables ambientales de forma precisa y en tiempo real, optimizando el sistema, brindando soluciones reales ejecutando acciones o actividades   lo mas desatendidas y seguras posibles. 
 
 ### 🎯 Logros alcanzados:
 
