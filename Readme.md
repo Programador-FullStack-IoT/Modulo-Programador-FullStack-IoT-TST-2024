@@ -211,12 +211,15 @@ La etapa de adquisición de datos en el sistema OmniSens se basa en la utilizaci
 - 💧 **Humedad relativa**
 - 🌀 **Presión atmosférica**
 - 💡 **Luminosidad**
+- 🕯️ **Concentracion de gases/ calidad de aire**
 
 ### 🛠️ Componentes utilizados:
 - **Sensores digitales y analógicos**:
-  - DHT11 → temperatura y humedad
-  - BMP280 → presión
-  - BH1750 → luminosidad
+  - AHT25 → temperatura y humedad
+  - BMP280 → presión y temperatura
+  - LDR → luminosidad
+  - MQ135 → Calidad de aire
+    
 - **Microcontrolador**:
   - ESP32 (con conectividad WiFi y/o LoRa)
 
