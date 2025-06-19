@@ -361,11 +361,6 @@ El dashboard se organiza en múltiples secciones:
 8. **Identificador de dispositivos**
 
 
-### 🔗 Conexión de datos:
-
-- **Grafana**: se conecta directamente a la base MariaDB mediante consultas SQL configuradas por variable y tabla.
-- **Power BI**: importa los datos desde MySQL o desde archivos exportados, permitiendo modelado, limpieza y relaciones personalizadas.
-
 > La visualización convierte datos técnicos en información útil y clara, permitiendo interpretar el comportamiento ambiental y tomar decisiones informadas en entornos industriales.
 
 ---
