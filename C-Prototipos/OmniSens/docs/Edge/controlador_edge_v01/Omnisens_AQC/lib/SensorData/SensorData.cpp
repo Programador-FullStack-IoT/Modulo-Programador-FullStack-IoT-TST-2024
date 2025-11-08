@@ -30,21 +30,21 @@ String SensorData::toJSON() {float gas = _mq ? _mq->readFilteredData() : -1.0;
 
     String json = "{";
     json += "\"ID\":\"" + _id + "\",";
-    json += "\"timeStamp\":" + String(ts) + ",";
-    json += "\"gas\":" + String(gas, 2) + ",";
-    json += "\"temp_bmp\":" + String(temp_bmp, 2) + ",";
-    json += "\"presion\":" + String(presion, 2) + ",";
-    json += "\"temp_aht\":" + String(temp_aht, 2) + ",";
-    json += "\"humedad\":" + String(humedad, 2) + ",";
-    json += "\"luz\":" + String(luz) + ",";
-    json += "\"rele1\":" + String(rele1) + ",";
-    json += "\"rele2\":" + String(rele2) + ",";
-    json += "\"pwm\":" + String(pwm) + ",";
-    json += "\"sensor_status\":{";
-    json += "\"mq135\":" + String(mq135_ok) + ",";
-    json += "\"bmp280\":" + String(bmp280_ok) + ",";
-    json += "\"aht25\":" + String(aht25_ok);
-    json += "}}";
+    json += "\"tS\":" + String(ts) + ",";
+    json += "\"g\":" + String(gas, 2) + ",";
+    json += "\"tB\":" + String(temp_bmp, 2) + ",";
+    json += "\"p\":" + String(presion, 2) + ",";
+    json += "\"tA\":" + String(temp_aht, 2) + ",";
+    json += "\"h\":" + String(humedad, 2) + ",";
+    json += "\"l\":" + String(luz) + ",";
+    json += "\"r1\":" + String(rele1) + ",";
+    json += "\"r2\":" + String(rele2) + ",";
+    json += "\"pwm\":" + String(pwm);
+    //json += "\"sensor_status\":{";
+    //json += "\"mq135\":" + String(mq135_ok) + ",";
+    //json += "\"bmp280\":" + String(bmp280_ok) + ",";
+    //json += "\"aht25\":" + String(aht25_ok);
+    json += "}";
 
     return json;
 }

@@ -1,6 +1,11 @@
 // Importamos el servicio MQTT y el servicio de base de datos
+<<<<<<< HEAD
 const mqttService = require('../service/mqttService');
 const dbService = require('../service/databaseService'); // <--- Importamos el servicio de DB
+=======
+const mqttService = require('../../services/mqttService');
+const dbService = require('../../services/databaseService'); // <--- Importamos el servicio de DB
+>>>>>>> FernandoGC
 
 /**
  * Procesa una petición para enviar un comando a un dispositivo.
