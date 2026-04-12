@@ -25,11 +25,12 @@
 
 ## 👨‍🏫 Profesores
 
-| Nombre                        | GitHub                                 |
-|------------------------------|----------------------------------------|
-| Mario Gonzalez               | [@mariogonzalezispc](https://github.com/mariogonzalezispc) |
-| Jorge Morales                | [@JorEl057](https://github.com/JorEl057) |
-| Alejandro Mainero            | []() |
+| Nombre                       |
+|------------------------------|
+| Mario Gonzalez               | 
+| Jorge Morales                | 
+| Ana Farias                   |
+| Dante Violi                  |
 
 ## Descripción General
 
